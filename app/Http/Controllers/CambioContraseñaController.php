@@ -23,9 +23,9 @@ class CambioContraseñaController extends Controller
             $usuario->update([
                 'password'=>bcrypt($request->nuevapassword)
             ]);
-            return redirect('cambiocontrasena')->withErrors('Cambiado');
+            return redirect('cambiocontrasena')->withSuccess('Cambiado');
         }else{
-            return redirect('cambiocontrasena')->withErrors('Datos erroneos');
+            return redirect('cambiocontrasena')->withErrors('Credencial incorrecta');
         }
 
     }
