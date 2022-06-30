@@ -16,7 +16,7 @@ class ConsultarUsuariosController extends Controller
     }
     public function show(){
         if(Auth::check()){
-            $datos['usuarios']=User::paginate(100);
+            $datos['usuarios']=User::all();
             return view('consultaUsuarios', $datos);
         }
         return redirect('/login');
