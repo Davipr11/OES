@@ -9,6 +9,10 @@ use App\Http\Controllers\CambioContraseñaController;
 use App\Http\Controllers\OperadorController;
 use App\Http\Controllers\Operador2Controller;
 use App\http\Controllers\ConsultarUsuariosController;
+use App\http\Controllers\UsersInscriptionController;
+use App\http\Controllers\InscritosController;
+use App\http\Controllers\DepartamentoController;
+use App\http\Controllers\ExportarController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -45,5 +49,12 @@ Route::get('/operador2',[Operador2Controller::class, 'index']);
 
 Route::resource('consulta', ConsultarUsuariosController::class);
 
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+Route::post('/inscripcion',[UsersInscriptionController::class, 'inscribir'])->name('inscripcion');
 
+Route::get('/consultaInscripcion',[InscritosController::class, 'index']);
+Route::get('/consultaInscripcion',[InscritosController::class, 'Inscritos']);
+Route::get('/index',[DepartamentoController::class, 'index']);
+
+Route::get('/exportar',[ExportarController::class, 'exportar']);

@@ -4,20 +4,33 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{asset('css/estilos.css')}}">
     <title>operador2</title>
+    <header>
+        <img src="{{asset('images.png')}}" class="rounded mx-auto d-block">
+                @auth
+                <div class="button-logout">
+                    <a href="/logout" class="btn btn-light">cerrar sesion</a>
+                </div>               
+    </header>
 </head>
-<h1>Operador 2</h1>
 <body>
-@auth
-            <p>buena {{auth()->user()->Usuario}} inicio sesion</p>
-
-            <a href="/logout">cerrar</a>
-            <a href="/cambiocontrasena">Cambiar contraseña</a>
+<br>
+    <div class="container">
+        
+            <h3>OPERADOR 2</h3>           
+                <h4>Bienvenido {{auth()->user()->Usuario}} </h4><br>
+             <div class="d-grid gap-2 col-6 mx-auto">
+                <a href="/cambiocontrasena" class="btn btn-primary">Cambiar contraseña</a>
+            </div>
         @endauth
 
         @guest
             <p>pa ver inicie <a href="/login">iniciar sesion</a></p>
         @endguest
+        
+    </div>
 </body>
 </body>
 </html>
