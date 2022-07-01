@@ -23,6 +23,7 @@
                 <h4>Bienvenido {{auth()->user()->Usuario}} </h4><br>
              <div class="d-grid gap-2 col-6 mx-auto">
                 <a href="/cambiocontrasena" class="btn btn-primary">Cambiar contraseña</a>
+                <a href="/pregunta" class="btn btn-primary">Preguntas</a>
             </div>
         @endauth
 
