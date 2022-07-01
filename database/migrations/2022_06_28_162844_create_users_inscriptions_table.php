@@ -22,8 +22,7 @@ class CreateUsersInscriptionsTable extends Migration
             $table->date('fecha_vencimiento');
             $table->string('naturaleza_juridica');
             $table->string('nivel_complejidad');
-            $table->string('departamento');
-            $table->string('municipio');
+            $table->integer('municipio');
             $table->string('direccion');
             $table->string('caracter_territorial');
             $table->string('director_general');

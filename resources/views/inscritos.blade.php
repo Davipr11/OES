@@ -26,9 +26,8 @@
         <table class="table table-striped table-hover"> 
             <tr>
                 <th>IPS</th>
-                <th>NIT</th>
+                <th>NIT</th>         
                 <th>Departamento</th>
-                <th>Municipio</th>
                 <th>Director medico</th>
                 <th>Telefono</th>
                 <th>Email</th>
@@ -37,8 +36,7 @@
             <tr>
                <td>{{$inscrito->ips}}</td>         
                 <td>{{$inscrito->nit}}</td>        
-                <td>{{$inscrito->departamento}}</td>
-                <td>{{$inscrito->municipio}}</td>        
+                <td>{{$inscrito->departamento}}</td>        
                 <td>{{$inscrito->director_medico}}</td>         
                 <td>{{$inscrito->telefono}}</td>
                 <td>{{$inscrito->email}}</td>

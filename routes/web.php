@@ -13,6 +13,8 @@ use App\http\Controllers\UsersInscriptionController;
 use App\http\Controllers\InscritosController;
 use App\http\Controllers\DepartamentoController;
 use App\http\Controllers\ExportarController;
+use App\http\Controllers\PreguntaController;
+use App\http\Controllers\RespuestaController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -55,6 +57,14 @@ Route::post('/inscripcion',[UsersInscriptionController::class, 'inscribir'])->na
 
 Route::get('/consultaInscripcion',[InscritosController::class, 'index']);
 Route::get('/consultaInscripcion',[InscritosController::class, 'Inscritos']);
+
 Route::get('/index',[DepartamentoController::class, 'index']);
 
 Route::get('/exportar',[ExportarController::class, 'exportar']);
+
+Route::get('/pregunta',[PreguntaController::class, 'index']);
+Route::post('/pregunta',[PreguntaController::class, 'preguntar']);
+
+Route::get('/respuesta',[RespuestaController::class, 'index'])->name('respuesta');
+Route::post('/respuesta',[RespuestaController::class, 'Responder'])->name('responder');
+

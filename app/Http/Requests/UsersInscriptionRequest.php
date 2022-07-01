@@ -31,7 +31,6 @@ class UsersInscriptionRequest extends FormRequest
             'fecha_vencimiento'=>'required|date',
             'naturaleza_juridica'=>'required|string',
             'nivel_complejidad'=>'required|string',
-            'departamento'=>'required',
             'municipio'=>'required',
             'direccion'=>'required',
             'caracter_territorial'=>'required|string',

@@ -9,7 +9,9 @@
     <link rel="stylesheet" href="{{asset('css/estilos.css')}}">
     <title>oes</title>
     <header>     
-            <img src="{{asset('images.png')}}" class="rounded mx-auto d-block">
+        <div class="img">
+            <img src="{{asset('images.png')}}" class="img-fluid">
+        </div>
                 @auth
                 <div class="button-logout">
                     <a href="/logout" class="btn btn-light">cerrar sesion</a>
@@ -24,7 +26,9 @@
                 <a href="/login" class="btn btn-light">Iniciar sesion</a> 
             </div>
             @endguest
+
     </header>
+    @livewireStyles
 </head>
 <body>
 <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#inscripcion">
@@ -107,24 +111,8 @@
                             <label class="form-check-label" for="nivel_complejidad">Mediana</label>
                         </div>
                         <br><br>
-                        <div class="form-floating mb-3">
-                            <select name="departamento" id="departamento" class="form-select">
-                                <option selected>..Seleccione..</option>
-                                @foreach ($departamentos as $departamento)
-                                    <option value="{{$departamento->departamento}}">{{$departamento->departamento}}</option>
-                                @endforeach
-                            </select>
-                            <label for="departamento">Departamento *</label>
-                        </div>
-                        
-                        <div class="form-floating">
-                            <select name="municipio" id="municipio" class="form-select">
-                            <option selected>..Seleccione..</option>
-                            @foreach ($municipios as $municipio)
-                                    <option value="{{$municipio->municipio}}">{{$municipio->municipio}}</option>
-                                @endforeach
-                            </select>
-                            <label for="municipio">Municipio *</label>
+                        <div>
+                            <livewire:select-component/>
                         </div>
                         <br>
                         <div class="form-floating">
@@ -263,6 +251,6 @@
                 </div>
             </div>
             </div>
-            
+            @livewireScripts
 </body>
 </html>
