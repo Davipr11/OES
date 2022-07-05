@@ -25,14 +25,13 @@ class UsersInscriptionRequest extends FormRequest
     {
         return [
             'ips'=>'required|string',
-            'nit'=>'required|numeric|min:10',
+            'nit'=>'required|numeric|min:10|unique:users_inscriptions',
             'codigo_habilitacion_prestador'=>'required',
             'fecha_inscripcion_reps'=>'required|date',
             'fecha_vencimiento'=>'required|date',
             'naturaleza_juridica'=>'required|string',
             'nivel_complejidad'=>'required|string',
-            'departamento'=>'required',
-            'municipio'=>'required',
+            'municipio'=>'required|integer',
             'direccion'=>'required',
             'caracter_territorial'=>'required|string',
             'director_general'=>'required|string',
@@ -40,7 +39,7 @@ class UsersInscriptionRequest extends FormRequest
             'referente_ips'=>'required|string',
             'cargo'=>'required|string',
             'telefono'=>'required|numeric',
-            'email'=>'required|email',
+            'email'=>'required|email|unique:users_inscriptions',
             'atencion_infantil'=>'required|string',
             'deteccion_temprana_enfermedades_cardiovasculares'=>'required|string',
             'programas_atencion_obesidad'=>'required|string',
@@ -52,7 +51,7 @@ class UsersInscriptionRequest extends FormRequest
     }
     public function messages(){
         return[
-            'required'=>'El :attribute es requerido',
+            'required'=>'El/La :attribute es requerido',
             'telefono.numeric'=>'El telefono debe ser numerico',
             'string'=>'El :attribute debe ser una cadena de texto',
             'email.email'=>'El correo debe ser valido',

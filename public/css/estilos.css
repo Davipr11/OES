@@ -1,11 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 *{
-    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-family:'Montserrat', sans-serif;
 }
+monserat
 .modal-body{
     font-size: 0.9em;
 }
 body{
-    background-color:rgb(159, 217, 236);
+    background-color:rgb(255, 255, 255);
 }
 .container{
     background: rgb(142, 194, 211);
@@ -17,17 +19,20 @@ body{
 header{
     background-color:rgb(255, 255, 255);
 }
+.img{
+    margin-left:43%;
+}
 .button-logout{
     margin-left: 90%;
     margin-top: -1%;
 }
 .button-home{
     margin-left: 3%;
-    margin-top: -2.4%;
+    margin-top: -2%;
 }
 .error{
     font-size: 0.9rem;
-    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-family:'Montserrat', sans-serif;
 }
 .form{
     margin-left: 25%;

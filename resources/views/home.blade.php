@@ -31,6 +31,7 @@
                     <a href="/cambiocontrasena" class="btn btn-primary">Cambiar contraseña</a>
                     <a href="/consulta/show" class="btn btn-primary">Consultar usuarios</a>
                     <a href="/consultaInscripcion" class="btn btn-primary">Consultar inscripciones</a>
+                    <a href="/respuesta" class="btn btn-primary">Preguntas</a>
                 </div>
             @endauth
 
