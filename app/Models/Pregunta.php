@@ -11,10 +11,6 @@ class Pregunta extends Model
 
     protected $fillable = [
         'pregunta',
-        'id_user',
+        'email',
     ];
-
-    public function usuario(){
-        return $this->hasOne('App\Models\User','id','id_user');
-    }
 }

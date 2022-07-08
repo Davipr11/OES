@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class PreguntaRequest extends FormRequest
 {
@@ -23,22 +24,38 @@ class PreguntaRequest extends FormRequest
      */
     public function rules()
     {
+        if(Auth::check()){
+            return [
+            'pregunta'=>'required|string',     
+        ];
+        }
         return [
             'pregunta'=>'required|string',
+            'email'=>'required|email'
         ];
     }
 
     public function messages(){
         return[
-            'required'=>'La :attribute es requerida '
+            'pregunta.required'=>'La pregunta es requerida ',
+            'email.required'=>'El email es requerido',
+            'email.email'=>'El correo debe ser un correo valido'
         ];
     }
 
     public function getData(){
-        $usuario=auth()->user()->id;
+        
+        if(Auth::check()){
+           $usuario=auth()->user()->Correo; 
+            return [
+                        'email'=>$usuario,
+                        'pregunta'=>$this->get('pregunta')
+                    ];
+        }
         return [
-            'id_user'=>$usuario,
-            'pregunta'=>$this->get('pregunta')
+                'email'=>$this->get('email'),
+                'pregunta'=>$this->get('pregunta')
         ];
+        
     }
 }

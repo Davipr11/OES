@@ -12,12 +12,9 @@ use Illuminate\Support\Facades\Auth;
 class PreguntaController extends Controller
 {
     public function index(){
-        if(!Auth::check()){
-            return redirect('/login');
-        }
-        $preguntas=DB::select('SELECT p.id, p.pregunta,u.Usuario, p.created_at
+        
+        $preguntas=DB::select('SELECT p.id, p.pregunta,p.email, p.created_at
         FROM preguntas p
-        inner join users u on u.id=p.id_user
         order by p.created_at DESC');
        
        $respuestas=DB::select('SELECT respuesta, id_pregunta
@@ -29,7 +26,7 @@ class PreguntaController extends Controller
         $datos=$request->validated();
         $datos=$request->getData();
         $pregunta=Pregunta::create($datos);
-        return redirect('pregunta')->withSuccess('Pregunta enviada');    
+        return redirect('Premio_nacional_OES/Preguntas_Frecuentes')->withSuccess('Pregunta enviada');    
     }
 
 }

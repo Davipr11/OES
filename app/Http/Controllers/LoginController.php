@@ -28,7 +28,7 @@ class LoginController extends Controller
 
     public function authenticated(Request $request, $usuario){
         if(auth()->user()->Tipo_Usuario==1){
-            return redirect('/home');
+            return redirect('/Premio_nacional_OES/Evaluadores');
         }else if(auth()->user()->Tipo_Usuario==2){
             return redirect('/operador');
         }else{

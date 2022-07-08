@@ -23,10 +23,18 @@ class LoginRequest extends FormRequest
      * @return array
      */
     public function rules()
-    {
-        return [
-            'usuario'=>'required',
-            'password'=>'required'
+    { 
+        return[
+            'usuario'=>'required|string|min:4',
+            'password'=>'required|string|min:3'
+        ];
+    }
+
+    public function messages(){
+        return[
+            'required'=>'El :attribute es requerido',
+            'password.min'=>'El password debe tener minimo 3 caracteres',
+            'usuario.min'=>'El usuario debe tener minimo 4 caracteres'
         ];
     }
 
