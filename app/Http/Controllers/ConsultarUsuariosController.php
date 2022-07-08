@@ -10,7 +10,7 @@ class ConsultarUsuariosController extends Controller
 
     public function index(){
         if(Auth::check()){
-            return redirect('/consulta/show');
+            return redirect('/Premio_Nacional_OES/Evaluadores/consulta/show');
         }
         
     }

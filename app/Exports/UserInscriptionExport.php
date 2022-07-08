@@ -38,7 +38,8 @@ class UserInscriptionExport implements FromCollection, WithHeadings
             'Cuenta con programas de atencion de diabetes',
             'Cuenta con programas de atencion de HTA',
             'Cuenta con procesos de deteccion temprana contra el cancer',
-            'Ha trabajado un enfoque diferencial en los procesos de atencion'
+            'Ha trabajado un enfoque diferencial en los procesos de atencion',
+            'Fecha inscripcion'
 
 
         ];

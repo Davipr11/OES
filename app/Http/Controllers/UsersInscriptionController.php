@@ -7,9 +7,13 @@ use App\Models\users_inscription;
 
 class UsersInscriptionController extends Controller
 {
+    public function index(){
+        return view('inscripcion');
+    }
+
     public function inscribir(UsersInscriptionRequest $request){
         $userinscripcion=users_inscription::create($request->validated());
         
-        return redirect('index')->withSuccess('Ha sido inscrito');
+        return redirect('Premio_Nacional_OES/inscripcion')->withSuccess('Ha sido inscrito');
     }
 }

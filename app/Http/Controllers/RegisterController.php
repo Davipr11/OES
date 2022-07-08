@@ -10,25 +10,34 @@ class RegisterController extends Controller
 {
     public function index(){
         if(!Auth::check()){
-            return redirect('/home');
+            return redirect('/Premio_nacional_OES/Evaluadores');
         }
         return view('register');
     }
 
     public function register(Request $request){
         $request->validate([
-            'Nombres'=>'required',
-            'Apellidos'=>'required',
-            'Tipo_documento'=>'required',
-            'Documento'=>'required',
-            'Fecha_nacimiento'=>'required',
-            'Correo'=>'required',
-            'Direccion'=>'required',
-            'Tipo_Usuario'=>'required',
-            'Usuario'=>'required',
-            'Contrasena'=>'required',
-            'Estado'=>'required'
+            'Nombres'=>'required|string|max:30',
+            'Apellidos'=>'required|string|max:30',
+            'Tipo_documento'=>'required|numeric',
+            'Documento'=>'required|string|max:11|unique:users',
+            'Fecha_nacimiento'=>'required|date',
+            'Correo'=>'required|email|unique:users',
+            'Direccion'=>'required|string|max:15',
+            'Tipo_Usuario'=>'required|numeric',
+            'Usuario'=>'required|string|unique:users',
+            'Contrasena'=>'required|string|min:3',
+            'Estado'=>'required|string'
         ]);
+        /*$request->messages([
+            'required'=>'El/La :attribute es requerido',
+            'date'=>'La :attribute debe ser una fecha valida',
+            'Correo.email'=>'El correo debe ser un correo valido',
+            'string'=>'El :attribute debe ser una cadena de texto',
+            'max'=>'El/la :attribute tiene mas de los caracteres permitidos',
+            'unique'=>'El/la :attribute ya se encuentra registrado, debe ser unico'
+
+        ]);*/
         $user=new User;   
         $user->Nombres=$request->Nombres;
         $user->Apellidos=$request->Apellidos;
@@ -44,6 +53,6 @@ class RegisterController extends Controller
 
         $user->save();
 
-        return redirect()->route('login')->with('success', 'Registrado');
+        return redirect('/Premio_nacional_OES/Evaluadores/register')->with('success', 'Registrado');
     }
 }
