@@ -1,0 +1,176 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+*{
+    font-family:'Montserrat', sans-serif;
+}
+monserat
+.modal-body{
+    font-size: 0.9em;
+}
+body{
+    background-color:rgb(255, 255, 255);
+}
+.container{
+    padding: 40px;
+    max-width: 700px;
+    width: 90%;
+    margin: auto;
+    border-radius: 3%;
+}
+.container-login{
+    background-color:#01447B;
+    padding: 40px;
+    max-width: 700px;
+    width: 90%;
+    margin: auto;
+    border-radius: 3%;
+}
+.button-login{
+    background-color:#006799;
+    padding: 15px !important;
+    border: 0px;
+    color: white;
+    border-radius: 10px;
+}
+header{
+    background-color:rgb(255, 255, 255);
+}
+button a{
+    color:rgb(255, 255, 255);
+}
+.img{
+    margin-top: 15px; 
+    margin-left: 15px;
+}
+
+.button-logout{
+    margin-left: 90%;
+    margin-top: -1%;
+}
+.button-home{
+    margin-left: 3%;
+    margin-top: -2%;
+}
+.button-home-g{
+    background-color:#006799;
+    color:white !important; 
+    font-size: 15px !important;
+    margin-top:10px;
+
+    border-radius: 10px;
+    border: 0px !important;
+    padding: 15px !important;
+    width: 170px;
+}
+.form{
+    margin-left: 20%;
+    margin-right: 20%;
+}
+.button-home-pre{
+    background-color:#006799;
+    color:white !important; 
+    font-size: 15px !important;
+    border-radius: 10px;
+    border: 0px !important;
+    padding: 15px !important;
+    width: 170px;
+}
+.button-home-a{
+    background-color:#006799;
+    color:white !important; 
+    float: right;
+    font-size: 15px !important;
+    margin-top:5px;
+    margin-right: 10px;
+    border-radius: 10px;
+    border: 0px !important;
+    padding: 15px !important;
+    width: 100%;
+    text-align: center;
+}
+.div-a{
+    margin-right: 10px;
+}
+.btn-a{
+    background-color:#006799;
+    color:white !important; 
+    font-size: 15px !important;
+    margin-top:10px;
+    border-radius: 10px;
+    border: 0px !important;
+    padding: 15px !important;
+    width: 230px;
+}
+.btn-an{
+    background-color:#006799;
+    color:white !important; 
+    font-size: 15px !important;
+    margin-top:10px;
+    border-radius: 10px;
+    border: 0px !important;
+    padding: 15px !important;
+    width: 100%;
+    margin-right: 10px !important;
+}
+.button-home-export{
+    background-color:#006799;
+    color:white !important;   
+    font-size: 15px !important; 
+    border-radius: 10px;
+    border: 0px !important;
+    padding: 15px !important;
+    width: 100%;  
+}
+.button-edit{
+    background-color:#006799;
+    color:white !important;   
+    font-size: 15px !important; 
+    border-radius: 10px;
+    border: 0px !important;
+    padding: 15px !important;
+    
+}
+
+.error{
+    font-size: 1.1rem;
+    color:#B90B2E;
+    font-family:'Montserrat', sans-serif;
+}
+.form{
+    font-size: 0.9em;
+}
+.form-table{
+    margin: 1%;
+}
+a{
+
+    text-decoration: none;
+}
+a:hover{
+    color:white;
+    text-decoration: none;
+}
+.radio-value{
+    border: 2px solid #B90B2E;
+}
+tr.table-inscritos th{
+    background-color:#006799;
+    color: white !important;
+    text-align: center;
+}
+tr.table-inscritos td{
+    text-align: center;
+}
+.text-table{
+    color:#006799;
+}
+.container-table{
+    padding: 40px;
+    max-width: 1000px;
+    width: 90%;
+    margin: auto;
+    border-radius: 3%;
+}
+
+.evaluados{
+   background-color: #5a90ac;
+}
