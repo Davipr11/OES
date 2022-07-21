@@ -330,7 +330,8 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        ¿Seguro que desea enviar la evaluacion? Una vez enviada no se podran hacer modificaciones.
+        ¿Seguro que desea enviar la evaluacion?
+        Una vez enviada no se podran hacer modificaciones.
       </div>
       <div class="modal-footer">
         <input type="submit" value="Enviar" name="Enviar" class="button-edit">

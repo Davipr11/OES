@@ -52,7 +52,7 @@
 <br>
     <div class="container">
         
-            <h3>OPERADOR</h3>
+            <h3>EVALUADOR</h3>
            
             <div class="d-grid gap-2 col-6 mx-auto">
             <a href="https://app.premiocalidadaps.com.co/Premio_Nacional_OES/Evaluadores/consultaInscripcion" class=" button-home-a">Consultar inscripciones</a>

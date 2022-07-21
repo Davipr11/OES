@@ -51,7 +51,7 @@
 <br><br><br>
     <div class="container">
         
-            <h3>OPERADOR 2</h3>           
+            <h3>EVALUADOR 2</h3>           
                 
                 
              <div class="d-grid gap-2 col-6 mx-auto">
