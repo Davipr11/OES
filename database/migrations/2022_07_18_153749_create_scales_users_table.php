@@ -26,7 +26,7 @@ class CreateScalesUsersTable extends Migration
             $table->integer('scaletrazabilidadresultado1');
             $table->integer('scaletrazabilidadresultado2');
             $table->integer('scaletrazabilidadresultado3');
-            $table->bigInteger('codigoUsuario')->unsigned();
+            $table->bigInteger('codigoUsuario')->unsigned()->unique();
             $table->timestamps();
             $table->foreign('codigoUsuario')->references('Codigorandom')->on('users_inscriptions')->onDelete("cascade");
         });

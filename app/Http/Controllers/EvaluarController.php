@@ -47,7 +47,7 @@ class EvaluarController extends Controller
             $evaluado=ScalesUser::create($request->validated());
             return redirect('/Premio_nacional_OES/Evaluadores/consultaInscripcion/'.$Codigorandom.'/resultado');
         } catch (\Throwable $th) {
-            return redirect('/Premio_nacional_OES/Evaluadores/consultaInscripcion')->withErrors('Error al evaluar');
+            return redirect('/Premio_Nacional_OES/Evaluadores/consultaInscripcion')->withErrors('Error al evaluar');
         }        
     }
 
@@ -58,21 +58,25 @@ class EvaluarController extends Controller
          try {
                 $evaluados=ScalesUser::where('codigoUsuario', $Codigorandom)->get();
 
-        foreach($evaluados as $eval){       
-            $resultado=new Result;           
-            $porcentajegobierno=(($eval->scalegobierno1 + $eval->scalegobierno2 + $eval->scalegobierno3)*100)/15;
-            $porcentajecohesion=(($eval->scalecohesionintegrabilidad1 + $eval->scalecohesionintegrabilidad2 + $eval->scalecohesionintegrabilidad3 + $eval->scalecohesionintegrabilidad4)*100)/20;
-            $porcentajetrazabilidad=(($eval->scaletrazabilidadresultado1 + $eval->scaletrazabilidadresultado2 + $eval->scaletrazabilidadresultado3)*100)/15;
-            $resultado->PorcenajeGobierno=$porcentajegobierno;
-            $resultado->PorcenajeCohesionIntegralidad=$porcentajecohesion;
-            $resultado->PorcenajeTrazabilidad=$porcentajetrazabilidad;
-            $resultado->PorcenajeTotal=($porcentajegobierno*0.4)+($porcentajecohesion*0.3)+($porcentajetrazabilidad*0.3);
-            $resultado->scaleUser=$eval->id;
-        }
+                foreach($evaluados as $eval){       
+                    $resultado=new Result;           
+                    $porcentajegobierno=(($eval->scalegobierno1 + $eval->scalegobierno2 + $eval->scalegobierno3)*100)/15;
+                    $porcentajecohesion=(($eval->scalecohesionintegrabilidad1 + $eval->scalecohesionintegrabilidad2 + $eval->scalecohesionintegrabilidad3 + $eval->scalecohesionintegrabilidad4)*100)/20;
+                    $porcentajetrazabilidad=(($eval->scaletrazabilidadresultado1 + $eval->scaletrazabilidadresultado2 + $eval->scaletrazabilidadresultado3)*100)/15;
+                    $resultado->PorcenajeGobierno=$porcentajegobierno;
+                    $resultado->PorcenajeCohesionIntegralidad=$porcentajecohesion;
+                    $resultado->PorcenajeTrazabilidad=$porcentajetrazabilidad;
+                    $resultado->PorcenajeTotal=($porcentajegobierno*0.4)+($porcentajecohesion*0.3)+($porcentajetrazabilidad*0.3);
+                    $resultado->scaleUser=$eval->id;
+                }
             $resultado->save();  
             return redirect('/Premio_nacional_OES/Evaluadores/consultaInscripcion/'.$eval->id.'/resultadofinal');
          } catch (\Throwable $th) {
-            return view('resultado');
+            if (DB::table('scales_users')->where('codigoUsuario', $Codigorandom)->exists()) {
+                return redirect('/Premio_nacional_OES/Evaluadores/evaluados');
+            }else{
+                return redirect('/Premio_Nacional_OES/Evaluadores/consultaInscripcion');
+            }
          }
         
     }
@@ -82,9 +86,7 @@ class EvaluarController extends Controller
                 return view('resultado', compact('resultadofinal'));
             } catch (\Throwable $th) {
                 return view('home');
-            }
-
-            
+            }         
         }
     public function evaluados(){
 

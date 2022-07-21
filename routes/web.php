@@ -47,8 +47,8 @@ Route::get('/logout',[LogoutController::class, 'logout']);
 Route::get('/cambiocontrasena',[CambioContraseñaController::class, 'index'])->name('cambio');
 Route::post('/cambiocontrasena',[CambioContraseñaController::class, 'cambiar'])->name('cambiar');
 
-Route::get('/operador',[OperadorController::class, 'index']);
-Route::get('/operador2',[Operador2Controller::class, 'index']);
+Route::get('/evaluador',[OperadorController::class, 'index']);
+Route::get('/evaluador2',[Operador2Controller::class, 'index']);
 
 Route::resource('Premio_Nacional_OES/Evaluadores/consulta', ConsultarUsuariosController::class);
 

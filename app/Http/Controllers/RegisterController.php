@@ -12,6 +12,9 @@ class RegisterController extends Controller
         if(!Auth::check()){
             return redirect('/Premio_nacional_OES/Evaluadores');
         }
+        if(auth()->user()->Tipo_Usuario==2 || auth()->user()->Tipo_Usuario==3){
+            return redirect()->back();
+        }
         return view('Register');
     }
 

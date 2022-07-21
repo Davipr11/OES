@@ -42,7 +42,7 @@ class CreateUsersInscriptionsTable extends Migration
             $table->integer('Codigorandom');
             $table->integer('Evaluador')->unsigned();
             $table->timestamps();
-            $table->foreign('Evaluador')->references('id')->on('users')->onDelete("cascade");
+            $table->foreign('Evaluador')->references('id')->on('users');
         });
     }
 

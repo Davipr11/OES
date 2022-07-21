@@ -10,6 +10,9 @@ class ConsultarUsuariosController extends Controller
 
     public function index(){
         if(Auth::check()){
+            if(auth()->user()->Tipo_Usuario==2 || auth()->user()->Tipo_Usuario==3){
+                return redirect()->back();
+            }
             return redirect('/Premio_Nacional_OES/Evaluadores/consulta/show');
         }
         return view('Login');

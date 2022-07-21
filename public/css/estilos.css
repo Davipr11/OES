@@ -174,3 +174,7 @@ tr.table-inscritos td{
 .evaluados{
    background-color: #5a90ac;
 }
+
+.text-line{
+    text-decoration:underline;
+}
