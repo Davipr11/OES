@@ -26,9 +26,9 @@ class RespuestaController extends Controller
                     FROM `respuestas`');
                     return view('respuesta', compact('preguntas', 'respuestas'));
                 }else if(auth()->user()->Tipo_Usuario==2){
-                    return redirect('/operador');
+                    return redirect('/evaluador');
                 }else{
-                    return redirect('/operador2');
+                    return redirect('/evaluador2');
                 }
         }
         

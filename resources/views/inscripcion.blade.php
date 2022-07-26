@@ -7,7 +7,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>  
     <link rel="stylesheet" href="{{asset('css/estilos.css')}}">
-    <title>oes</title>  
+    <link rel="icon" type="image/x-icon" href="{{asset('premionacional.png')}}">
+    <title>Inscripcion</title>  
     <header>   
     <nav class="navbar navbar-expand-lg navbar-light bg-light"> <a class="navbar-brand" href="https://premiocalidadaps.com.co/"><img src="{{asset('logominisalud.png')}}" alt=""></a>       
             <div class="container-fluid">
@@ -34,7 +35,7 @@
                 </li>  
             </ul>  
         </div>
-    </nav>>
+    </nav>
         <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color:#205493!important; "> <a class="navbar-brand" href="#"><img src="{{asset('iconopremiopng.png')}}" alt="" style="width:width: 100%; max-width: 250px "></a>
         </nav>
         <script src="https://kit.fontawesome.com/782d75be0f.js" crossorigin="anonymous"></script>
@@ -63,19 +64,23 @@
                 </div>
             
             @endif 
-            <div class="form">
+            <div class="form-ins">
             <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg">
                 <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Formulario de inscripcion</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Formulario de inscripción</h5>
                     
                 </div>
                 <div class="modal-body">
-                    <p>El formulario y cuestionario de inscripcion debe ser diligenciado en su totalidad.Esta inscripcion
-                        NO tiene costo alguno. El equipo tecnico del premio podrá hacer verificacion de la informacion suministrada.
+                    <p>El formulario de inscripción debe ser diligenciado en su totalidad.
+                        <span class="text-line">
+                           Esta inscripción 
+                        <b>NO</b>
+                        tiene costo alguno. 
+                        </span>  El equipo técnico del premio podrá hacer verificación de la información suministrada.
                     </p><br>
-                    <p>Las instituciones acpetadas para participar en el proceso de evaluacion recibiran comunicacion formal
-                         a través de los caneles de comunicacion definidos por el Premio Nacional.</p>
+                    <p>Las instituciones aceptadas para participar en el proceso de evaluacion recibirán comunicacián formal
+                         a través de los canales de comunicación definidos por el Premio Nacional.</p>
                          <br><br>
                          
                     <form action="/Premio_Nacional_OES/inscripcion" method="post">
@@ -105,7 +110,7 @@
                         <br>
                         <div class="form-floating">
                             <input type="text" class="form-control" id="codigo_habilitacion_prestador" name="codigo_habilitacion_prestador" placeholder="Codigo de Habilitacion"  value="{{old('codigo_habilitacion_prestador')}}">
-                            <label for="codigo_habilitacion_prestador">Codigo de Habilitacion del prestador *</label>
+                            <label for="codigo_habilitacion_prestador">Código de Habilitación del prestador *</label>
                             @error('codigo_habilitacion_prestador')
                             <b><h6 class="error">{{$message}}</h6></b>
                             @enderror
@@ -113,7 +118,7 @@
                         <br>
                         <div class="form-floating">
                             <input type="date" class="form-control" id="fecha_inscripcion_reps" name="fecha_inscripcion_reps" placeholder="Fecha de inscripcion REPS" value="{{old('fecha_inscripcion_reps')}}">
-                            <label for="fecha_inscripcion_reps">Fecha de inscripcion REPS * </label>
+                            <label for="fecha_inscripcion_reps">Fecha de inscripción REPS * </label>
                             @error('fecha_inscripcion_reps')
                             <b><h6 class="error">{{$message}}</h6></b>
                             @enderror
@@ -127,11 +132,11 @@
                             @enderror
                         </div>
                         <br>
-                        <b><label for="" style="color: #009FE3">Naturaleza Juridiaca *</label></b><br>
+                        <b><label for="" style="color: #009FE3">Naturaleza Jurídiaca *</label></b><br>
                         
                         <div class="form-check form-check-inline">
                             <input class="form-check-input  radio-value" type="radio" name="naturaleza_juridica" id="inlineRadio1" value="Publica" {{ old('naturaleza_juridica') == "Publica" ? 'checked' : '' }}>
-                            <label class="form-check-label" for="naturaleza_juridica">Publica</label>
+                            <label class="form-check-label" for="naturaleza_juridica">Pública</label>
                             
                         </div>
                         <div class="form-check form-check-inline">
@@ -172,7 +177,7 @@
                             @enderror
                         </div>
                         <br>
-                        <b><label for="" style="color: #009FE3">Caracter territorial *</label></b><br>
+                        <b><label for="" style="color: #009FE3">Carácter territorial *</label></b><br>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input radio-value" type="radio" name="caracter_territorial" id="caracter_territorial1" value="Nacional" {{ old('caracter_territorial') == "Nacional" ? 'checked' : '' }}>
                             <label class="form-check-label" for="caracter_territorial">Nacional</label>
@@ -232,7 +237,7 @@
                         <br>
                         <div class="form-floating">
                             <input type="number" class="form-control" id="telefono" name="telefono" placeholder="Telefono" value="{{old('telefono')}}">
-                            <label for="telefono">Telefono *</label>
+                            <label for="telefono">Celular *</label>
                             @error('telefono')
                             <b><h6 class="error">{{$message}}</h6></b>
                             @enderror
@@ -240,13 +245,13 @@
                         <br>
                         <div class="form-floating">
                             <input type="email" class="form-control" id="email" name="email" placeholder="Email" value="{{old('email')}}">
-                            <label for="email">Email *</label>
+                            <label for="email">E-mail *</label>
                             @error('email')
                             <b><h6 class="error">{{$message}}</h6></b>
                             @enderror
                         </div>
                         <br>
-                        <b><label for="" style="color: #009FE3">¿La IPS tiene implementada la ruta integral de atención en salud materno perinatal? *</label></b><br>
+                        <b><label for="" style="color: #009FE3">¿La IPS tiene implementada la Ruta Integral de Atención en Salud Materno Perinatal? *</label></b><br>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input radio-value" type="radio" name="atencion_infantil" id="inlineRadio1" value="Si" {{ old('atencion_infantil') == "Si" ? 'checked' : '' }}>
                             <label class="form-check-label " for="atencion_infantil">Si</label>
@@ -259,7 +264,7 @@
                         <b><h6 class="error">{{$message}}</h6></b>
                         @enderror
                         <br>
-                        <b><label for="" style="color: #009FE3">¿La IPS tiene procesos de atencion para la deteccción temprana de enfermedades cardiovasculares? *</label></b><br>
+                        <b><label for="" style="color: #009FE3">¿La IPS tiene procesos de atención para la deteccción temprana de enfermedades cardiovasculares? *</label></b><br>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input  radio-value" type="radio" name="deteccion_temprana_enfermedades_cardiovasculares" id="deteccion_temprana_enfermedades_cardiovasculares" value="Si" {{ old('deteccion_temprana_enfermedades_cardiovasculares') == "Si" ? 'checked' : '' }}>
                             <label class="form-check-label" for="deteccion_temprana_enfermedades_cardiovasculares">Si</label>
@@ -272,7 +277,7 @@
                         <b><h6 class="error">{{$message}}</h6></b>
                         @enderror
                         <br>
-                        <b><label for="" style="color: #009FE3">¿Cuenta con procesos de atencion para obesidad? *</label></b><br>
+                        <b><label for="" style="color: #009FE3">¿Cuenta con procesos de atención para obesidad? *</label></b><br>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input  radio-value" type="radio" name="programas_atencion_obesidad" id="programas_atencion_obesidad" value="Si" {{ old('programas_atencion_obesidad') == "Si" ? 'checked' : '' }}>
                             <label class="form-check-label" for="programas_atencion_obesidad">Si</label>
@@ -285,7 +290,7 @@
                         <b><h6 class="error">{{$message}}</h6></b>
                         @enderror
                         <br>
-                        <b><label for="" style="color: #009FE3">¿Cuenta con procesos de atencion en Diabetes? *</label></b><br>
+                        <b><label for="" style="color: #009FE3">¿Cuenta con procesos de atención en Diabetes? *</label></b><br>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input  radio-value" type="radio" name="programas_atencion_diabetes" id="programas_atencion_diabetes" value="Si" {{ old('programas_atencion_diabetes') == "Si" ? 'checked' : '' }}>
                             <label class="form-check-label" for="programas_atencion_diabetes">Si</label>
@@ -298,7 +303,7 @@
                         <b><h6 class="error">{{$message}}</h6></b>
                         @enderror
                         <br>
-                        <b><label for="" style="color: #009FE3">¿Cuenta con procesos de atencion en HTA? *</label></b><br>
+                        <b><label for="" style="color: #009FE3">¿Cuenta con procesos de atención en HTA? *</label></b><br>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input  radio-value" type="radio" name="programas_atencion_hta" id="programas_atencion_hta" value="Si" {{ old('programas_atencion_hta') == "Si" ? 'checked' : '' }}>
                             <label class="form-check-label" for="programas_atencion_hta">Si</label>
@@ -311,7 +316,7 @@
                         <b><h6 class="error">{{$message}}</h6></b>
                         @enderror
                         <br>
-                        <b><label for="" style="color: #009FE3">¿La IPS tiene procesos de atencion para la deteccion temprana de cancer? *</label></b><br>
+                        <b><label for="" style="color: #009FE3">¿La IPS tiene procesos de atención para la deteccion temprana de cáncer? *</label></b><br>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input  radio-value" type="radio" name="procesos_atencion_deteccion_temprana_cancer" id="procesos_atencion_deteccion_temprana_cancer" value="Si" {{ old('procesos_atencion_deteccion_temprana_cancer') == "Si" ? 'checked' : '' }}>
                             <label class="form-check-label" for="procesos_atencion_deteccion_temprana_cancer">Si</label>
@@ -324,7 +329,7 @@
                         <b><h6 class="error">{{$message}}</h6></b>
                         @enderror
                         <br>
-                        <b><label for="" style="color: #009FE3">¿La IPS ha trabajado en el enfoque diferencial en sus procesos de atencion? *</label></b><br>
+                        <b><label for="" style="color: #009FE3">¿La IPS ha trabajado en el enfoque diferencial en sus procesos de atención? *</label></b><br>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input  radio-value" type="radio" name="enfoque_diferencial_procesos_atencion" id="enfoque_diferencial_procesos_atencion" value="Si" {{ old('enfoque_diferencial_procesos_atencion') == "Si" ? 'checked' : '' }}>
                             <label class="form-check-label" for="enfoque_diferencial_procesos_atencion">Si</label>
@@ -337,7 +342,7 @@
                         <b><h6 class="error">{{$message}}</h6></b>
                         @enderror
                         
-                        <input type="hidden" name="Codigorandom" id="Codigorandom" value="{{rand(1000, 9999)}}">
+                        <input type="hidden" name="Codigorandom" id="Codigorandom" value="{{rand(1000, 99999)}}">
                         <input type="hidden" name="id" id="id" value="{{rand(9999, 99999)}}">
                         
                                

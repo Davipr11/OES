@@ -7,7 +7,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{{asset('css/estilos.css')}}">
-    <title>Document</title>
+    <link rel="icon" type="image/x-icon" href="{{asset('premionacional.png')}}">
+    <title>Resultado</title>
     <header>   
     <nav class="navbar navbar-expand-lg navbar-light bg-light"> <a class="navbar-brand" href="https://premiocalidadaps.com.co/"><img src="{{asset('logominisalud.png')}}" alt=""></a>       
            
@@ -50,7 +51,7 @@
                 </li>
                 <li class="nav-item mx-2 py-2">
                 <button type="button" class="btn-an" style="background-color:#006799; color:white ">
-                <a href="/Premio_nacional_OES/Evaluadores/evaluados">Evaluados</a>
+                <a href="https://app.premiocalidadaps.com.co/Premio_nacional_OES/Evaluadores/evaluados">Evaluados</a>
                 </button>
                 </li> 
                 @auth
@@ -70,34 +71,58 @@
 </head>
 <body>
     <br><br>
-    <center><h1>Resultado</h1></center>
-          <table class="table table-striped container-table">
+    <center><h1 style="color: #009FE3">Resultado</h1></center>
+    <div style="overflow-x:auto;">
+          <table class="table table-striped container-table tabla-respo">
+          @foreach ($resultadofinal as $rf)
+          <center><h1 style="color: #009FE3">Evaluacion de la inscripcion {{$rf->User}}</h1></center>
+          @endforeach
               <tr class="evaluados">
-                  <th>Evaluacion</th>
+                  <th>Resultados claves</th>
+                  <th>Atencion en salud materno perinatal</th>
+                  <th>Deteccion temprana de enfermedades cardiovasculares</th>
+                  <th>Deteccion temprana de cancer</th>
+                  <th>Integracion del enfoque diferencial en la atencion del prestador</th>
+                  <th>Total</th>
               </tr>
-              
-              
+                        
                 @foreach ($resultadofinal as $rf)
                 <tr>
-                    <td>Gobierno 40%</td>
-                    <td>{{$rf->PorcenajeGobierno}}%</td>
+                    <th>Estrutura</th>
+                    <td>{{round($rf->porcentaje_estructura_perinatal,2)}}%</td>
+                    <td>{{round($rf->porcentaje_estructura_cardio,2)}}%</td>
+                    <td>{{round($rf->porcentaje_estructura_cancer,2)}}%</td>
+                    <td>{{round($rf->porcentaje_estructura_enfoque,2)}}%</td>
+                    <td>{{round($rf->PorcenajeEstructura,2)}}%</td>
                 </tr>
                 <tr>
-                    <td>Cohesion e integralidad 30%</td>
-                    <td>{{$rf->PorcenajeCohesionIntegralidad}}%</td>
+                    <th>Proceso</th>
+                    <td>{{round($rf->porcentaje_proceso_perinatal,2)}}%</td>
+                    <td>{{round($rf->porcentaje_proceso_cardio,2)}}%</td>
+                    <td>{{round($rf->porcentaje_proceso_cancer,2)}}%</td>
+                    <td>{{round($rf->porcentaje_proceso_enfoque,2)}}%</td>
+                    <td>{{round($rf->PorcenajeProceso,2)}}%</td>
                 </tr> 
                 <tr>
-                    <td>Trazabilidad del resultado 30%</td>
-                    <td>{{$rf->PorcenajeTrazabilidad}}%</td>
+                    <th>Resultado</th>
+                    <td>{{round($rf->porcentaje_resultado_perinatal,2)}}%</td>
+                    <td>{{round($rf->porcentaje_resultado_cardio,2)}}%</td>
+                    <td>{{round($rf->porcentaje_resultado_cancer,2)}}%</td>
+                    <td>{{round($rf->porcentaje_resultado_enfoque,2)}}%</td>
+                    <td>{{round($rf->PorcenajeResultado,2)}}%</td>
                 </tr> 
-                
                 <tr class="evaluados"> 
                                     
-                        <td>Total %</td>
-                        <td>{{$rf->PorcenajeTotal}}%</td>       
-                </tr>     
+                        <th>Total %</th>
+                        <td>{{round($rf->porcentaje_perinatal,2)}}%</td>
+                        <td>{{round($rf->porcentaje_cardio,2)}}%</td>  
+                        <td>{{round($rf->porcentaje_cancer,2)}}%</td>  
+                        <td>{{round($rf->porcentaje_enfoque,2)}}%</td>     
+                        <td>{{round($rf->PorcenajeTotal,2)}}%</td>    
+                </tr>   
+                 
                 @endforeach
           </table>
-                
+    </div>       
 </body>
 </html>

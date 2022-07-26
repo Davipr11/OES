@@ -7,6 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{{asset('css/estilos.css')}}">
+    <link rel="icon" type="image/x-icon" href="{{asset('premionacional.png')}}">
     <title>Evaluadores</title>
     <header>   
     <nav class="navbar navbar-expand-lg navbar-light bg-light"> <a class="navbar-brand" href="https://premiocalidadaps.com.co/"><img src="{{asset('logominisalud.png')}}" alt=""></a>       
@@ -49,7 +50,7 @@
                 </li>
                 <li class="nav-item mx-2 py-2">
                 <button type="button" class="btn-an" style="background-color:#006799; color:white ">
-                <a href="/Premio_nacional_OES/Evaluadores/evaluados">Evaluados</a>
+                <a href="https://app.premiocalidadaps.com.co/Premio_nacional_OES/Evaluadores/evaluados">Evaluados</a>
                 </button>
                 </li>  
                 @auth
@@ -72,9 +73,9 @@
     <br>   
         <div class="form">
             <center>
-                <h3>ADMINISTRADOR</h3>
+                <h3 style="color: #009FE3">Administrador</h3>
                 
-                <h4>Bienvenido {{auth()->user()->Usuario}} </h4>
+                <h4 style="color: #009FE3">Bienvenido {{auth()->user()->Usuario}} </h4>
                 @if($errors->any())
                     <div class="alert alert-danger" role="alert">
                         {!! implode('', $errors->all('<h6 class="error">:message</h6>')) !!}
@@ -90,7 +91,7 @@
                     <a href="https://app.premiocalidadaps.com.co/Premio_Nacional_OES/Evaluadores/consulta/show" class=" button-home-a">Consultar usuarios</a>
                     <a href="https://app.premiocalidadaps.com.co/Premio_Nacional_OES/Evaluadores/consultaInscripcion" class=" button-home-a">Consultar inscripciones</a>
                     <a href="https://app.premiocalidadaps.com.co/Premio_nacional_OES/Evaluadores/respuesta" class=" button-home-a">Preguntas</a>
-                    <a href="/Premio_nacional_OES/Evaluadores/evaluados" class=" button-home-a">Evaluados</a>
+                    <a href="https://app.premiocalidadaps.com.co/Premio_nacional_OES/Evaluadores/evaluados" class=" button-home-a">Evaluados</a>
                 </div>
            
         </div>

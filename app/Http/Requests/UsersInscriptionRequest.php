@@ -55,6 +55,7 @@ class UsersInscriptionRequest extends FormRequest
         return[
             'required'=>'El/La :attribute es requerido',
             'telefono.numeric'=>'El telefono debe ser numerico',
+            'telefono.digits'=>'El telefono debe tener 10 numeros',
             'string'=>'El :attribute debe ser una cadena de texto',
             'email.email'=>'El correo debe ser valido',
             'nit.numeric'=>'El NIT debe ser numerico',

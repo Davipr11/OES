@@ -5,15 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ScalesUser extends Model
+class Rule extends Model
 {
     use HasFactory;
-    
+
     protected $fillable = [
-        'estructura',
-        'proceso',
-        'resultado',      
-        'codigoUsuario',
-        'category',
+        'rule',
+        'recommendation',
     ];
 }

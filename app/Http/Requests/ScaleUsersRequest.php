@@ -24,35 +24,43 @@ class ScaleUsersRequest extends FormRequest
     public function rules()
     {
         return [
-            'scalegobierno1'=>'required',
-            'scalegobierno2'=>'required',
-            'scalegobierno3'=>'required',
-            'scalecohesionintegrabilidad1'=>'required',
-            'scalecohesionintegrabilidad2'=>'required',
-            'scalecohesionintegrabilidad3'=>'required',
-            'scalecohesionintegrabilidad4'=>'required',
-            'scaletrazabilidadresultado1'=>'required',
-            'scaletrazabilidadresultado2'=>'required',
-            'scaletrazabilidadresultado3'=>'required',
-            'codigoUsuario'=>'required|unique:scales_users'
+            'scaleperinatalEstructura1'=>'required',
+            'scaleperinatalEstructura2'=>'required',
+            'scaleperinatalproceso3'=>'required',
+            'scaleperinatalproceso4'=>'required',
+            'scaleperinatalproceso5'=>'required',
+            'scaleperinatalproceso6'=>'required',
+            'scaleperinatalproceso7'=>'required',
+            'scaleperinatalproceso8'=>'required',
+            'scaleperinatalResultado9'=>'required',
+            'scaleperinatalResultado10'=>'required',
+            'scaleperinatalResultado11'=>'required',
+            'scaleperinatalResultado12'=>'required',
+            'scaleperinatalResultado13'=>'required',
+            'codigoUsuario'=>'required',
+            'category'=>'required'
 
         ];
     }
 
     public function messages(){
-        return[
-            'scalegobierno1.required'=>'La primera puntuacion de gobierno es requerida',
-            'scalegobierno2.required'=>'La segunda puntuacion de gobierno es requerida',
-            'scalegobierno3.required'=>'La tercera puntuacion de gobierno es requerida', 
-            'scalecohesionintegrabilidad1.required'=>'La primera puntuacion de cohesion y integralidad es requerida',
-            'scalecohesionintegrabilidad2.required'=>'La segunda puntuacion de cohesion y integralidad es requerida',
-            'scalecohesionintegrabilidad3.required'=>'La tercera puntuacion de cohesion y integralidad es requerida',
-            'scalecohesionintegrabilidad4.required'=>'La cuarta puntuacion de cohesion y integralidad es requerida',
-            'scaletrazabilidadresultado1.required'=>'La primera puntuacion de trazabilidad de resultado es requerida',
-            'scaletrazabilidadresultado2.required'=>'La segunda puntuacion de trazabilidad de resultado es requerida',
-            'scaletrazabilidadresultado3.required'=>'La tercera puntuacion de trazabilidad de resultado es requerida',              
-            'codigoUsuario.unique'=>'Esta inscripcion ya se encuentra evaluada'
-        ];
-        
+        return[              
+            'required'=>'Por favor llene todas las evaluaciones'
+        ];       
     }
+
+
+    public function getData(){  
+        return[
+            'estructura'=>$this->get('scaleperinatalEstructura1')+$this->get('scaleperinatalEstructura2'),
+            'proceso'=>$this->get('scaleperinatalproceso3')+$this->get('scaleperinatalproceso4')+$this->get('scaleperinatalproceso5')
+            +$this->get('scaleperinatalproceso6')+$this->get('scaleperinatalproceso7')+$this->get('scaleperinatalproceso8'),
+            'resultado'=>$this->get('scaleperinatalResultado9')+$this->get('scaleperinatalResultado10')+$this->get('scaleperinatalResultado11')
+            +$this->get('scaleperinatalResultado12')+$this->get('scaleperinatalResultado13'),
+            'codigoUsuario'=>$this->get('codigoUsuario'),
+            'category'=>$this->get('category'),
+        ];
+    }
+
+
 }
