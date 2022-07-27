@@ -10,25 +10,29 @@ class RegisterController extends Controller
 {
     public function index(){
         if(!Auth::check()){
-            return redirect('/home');
+            return redirect('/Premio_nacional_OES/Evaluadores');
         }
-        return view('register');
+        if(auth()->user()->Tipo_Usuario==2 || auth()->user()->Tipo_Usuario==3){
+            return redirect()->back();
+        }
+        return view('Register');
     }
 
     public function register(Request $request){
         $request->validate([
-            'Nombres'=>'required',
-            'Apellidos'=>'required',
-            'Tipo_documento'=>'required',
-            'Documento'=>'required',
-            'Fecha_nacimiento'=>'required',
-            'Correo'=>'required',
-            'Direccion'=>'required',
-            'Tipo_Usuario'=>'required',
-            'Usuario'=>'required',
-            'Contrasena'=>'required',
-            'Estado'=>'required'
+            'Nombres'=>'required|string|max:30',
+            'Apellidos'=>'required|string|max:30',
+            'Tipo_documento'=>'required|numeric',
+            'Documento'=>'required|string|max:11|unique:users',
+            'Fecha_nacimiento'=>'required|date|before:today',
+            'Correo'=>'required|email|unique:users|max:40',
+            'Direccion'=>'required|string|max:20',
+            'Tipo_Usuario'=>'required|numeric',
+            'Usuario'=>'required|string|unique:users|min:4',
+            'Contrasena'=>'required|string|min:3',
+            'Estado'=>'required|string',
         ]);
+        
         $user=new User;   
         $user->Nombres=$request->Nombres;
         $user->Apellidos=$request->Apellidos;
@@ -44,6 +48,10 @@ class RegisterController extends Controller
 
         $user->save();
 
-        return redirect()->route('login')->with('success', 'Registrado');
+        return redirect('/Premio_nacional_OES/Evaluadores/register')->with('success', 'Registrado');
     }
+    /*public function register(RegisterRequest $request){
+        $users=User::create($request->validated());
+        return redirect('/Premio_nacional_OES/Evaluadores/register')->with('success', 'Registrado');
+    }*/
 }
