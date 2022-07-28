@@ -63,7 +63,7 @@
                 @auth
                 <li class="nav-item mx-2 py-2">
                 <button type="button" class="btn-an" style="background-color:#006799; color:white ">
-                <a href="https://app.premiocalidadaps.com.co/logout">Cerrar sesion</a>
+                <a href="https://app.premiocalidadaps.com.co/logout">Cerrar sesión</a>
                 </button>
                 </li> 
                 @endauth  
@@ -77,28 +77,30 @@
 <body>
     <br><br>
     <center>
-            <h1 style="color: #009FE3">Evaluacion de la inscripcion {{$idinscritos->Codigorandom}}</h1>
+            <h1 style="color: #009FE3">Evaluación de la inscripción {{$idinscritos->Codigorandom}}</h1>
     </center>
     @if (session('success'))
                     <div class="alert alert-success" role="alert">
                         <h6>{{session('success')}}</h6>
                     </div> 
     @endif
-    @if($errors->any())                
-                {!! implode('', $errors->all('<div class="alert alert-warning" role="alert"><h6 class="error">:message</h6></div> ')) !!}
+    @if($errors->any())
+                    <div class="alert alert-warning" role="alert">
+                        {!! implode('', $errors->all('<h6 class="error">:message</h6>')) !!}
+                    </div>
     @endif
 <div class="d-grid gap-2 col-6 mx-auto">
     <button class="button-home-a">
-        <a href="{{url('/Premio_nacional_OES/Evaluadores/consultaInscripcion/'.$idinscritos->id.'/1/evaluarPerinatal')}}">Evaluacion atencion en salud materno perinatal</a>
+        <a href="{{url('/Premio_nacional_OES/Evaluadores/consultaInscripcion/'.$idinscritos->id.'/1/evaluarPerinatal')}}">Evaluación atención en salud materno perinatal</a>
     </button class="button-home-a">
     <button class="button-home-a">
-        <a href="{{url('/Premio_nacional_OES/Evaluadores/consultaInscripcion/'.$idinscritos->id.'/2/evaluarCardiovascular')}}">Evaluacion deteccion temprana de enfermedades cardiovasculares</a>
+        <a href="{{url('/Premio_nacional_OES/Evaluadores/consultaInscripcion/'.$idinscritos->id.'/2/evaluarCardiovascular')}}">Evaluación detección temprana de enfermedades cardiovasculares</a>
     </button>
     <button class=" button-home-a">
-        <a href="{{url('/Premio_nacional_OES/Evaluadores/consultaInscripcion/'.$idinscritos->id.'/3/evaluarCancer')}}">Evaluacion deteccion temprana de cancer</a>
+        <a href="{{url('/Premio_nacional_OES/Evaluadores/consultaInscripcion/'.$idinscritos->id.'/3/evaluarCancer')}}">Evaluación detección temprana de cáncer</a>
     </button>
     <button class=" button-home-a">
-        <a href="{{url('/Premio_nacional_OES/Evaluadores/consultaInscripcion/'.$idinscritos->id.'/4/evaluarEnfoque')}}">Evaluacion integracion del enfoque diferencial en las atenciones del prestador</a>
+        <a href="{{url('/Premio_nacional_OES/Evaluadores/consultaInscripcion/'.$idinscritos->id.'/4/evaluarEnfoque')}}">Evaluación integración del enfoque diferencial en las atenciones del prestador</a>
     </button>
     <br>
     <button class=" button-home-a">

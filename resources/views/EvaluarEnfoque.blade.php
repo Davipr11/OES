@@ -19,11 +19,11 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent2">
             <ul class="navbar-nav mx-auto">
                 <li class="nav-item mx-2 py-2 ">
-                <button type="button" class="btn-an" style="background-color:#006799; color:white ">
-                <a href="https://app.premiocalidadaps.com.co/Premio_nacional_OES/Evaluadores">home</a>
-            </button>
+                <button type="button" class="btn-an" style="background-color:#006799; color:white" onclick="history.back()">
+                    Atras        
+                </button>
                 </li>
-                @if (auth()->user()->Tipo_Usuario==1)
+                @if(auth()->user()->Tipo_Usuario==1)
                 <li class="nav-item mx-2 py-2">
                 <button type="button" class="btn-an" style="background-color:#006799; color:white ">
                 <a href="https://app.premiocalidadaps.com.co/Premio_nacional_OES/Evaluadores/register">Crear Usuario</a>
@@ -36,7 +36,7 @@
                 </button>
                 </li>
                 
-                @if (auth()->user()->Tipo_Usuario==1)
+                @if(auth()->user()->Tipo_Usuario==1)
                 <li class="nav-item mx-2 py-2 ">
                 <button type="button" class="btn-an" style="background-color:#006799; color:white ">
                 <a href="https://app.premiocalidadaps.com.co/Premio_Nacional_OES/Evaluadores/consulta/show">Usuarios</a>
@@ -48,7 +48,7 @@
                 <a href="https://app.premiocalidadaps.com.co/Premio_Nacional_OES/Evaluadores/consultaInscripcion">Inscripciones</a>
             </button>
                 </li>
-                @if (auth()->user()->Tipo_Usuario==1)
+                @if(auth()->user()->Tipo_Usuario==1)
                 <li class="nav-item mx-2 py-2">
                 <button type="button" class="btn-an" style="background-color:#006799; color:white ">
                 <a href="https://app.premiocalidadaps.com.co/Premio_nacional_OES/Evaluadores/respuesta">Preguntas</a>
@@ -63,7 +63,7 @@
                 @auth
                 <li class="nav-item mx-2 py-2">
                 <button type="button" class="btn-an" style="background-color:#006799; color:white ">
-                <a href="https://app.premiocalidadaps.com.co/logout">Cerrar sesion</a>
+                <a href="https://app.premiocalidadaps.com.co/logout">Cerrar sesión</a>
                 </button>
                 </li> 
                 @endauth  
@@ -79,23 +79,36 @@
 </head>
 <body>
 <center>
-            <h1 style="color: #009FE3">Evaluacion de la inscripcion {{$inscripcion->Codigorandom}}</h1>
+            <h1 style="color: #009FE3">Evaluación de la inscripción {{$inscripcion->Codigorandom}}</h1>
         </center>
     
     
     <form action="{{url('Premio_nacional_OES/Evaluadores/consultaInscripcion/'.$inscripcion->id.'/evaluacionenfoque')}}" method="post">
     @csrf
     <table class="table table-striped container-table table-resp">   
-            <th class="table-eva">Evaluacion Enfoque diferencial en las atenciones del prestador</th> 
+            <th class="table-eva">Evaluación Enfoque diferencial en las atenciones del prestador</th> 
             <th></th>   
             <br>
-            
+            <tr>
+                <td>
+                Definir, ordenar e integrar las intervenciones colectivas e individuales,
+                las acciones requeridas en el marco de la atención integral en salud y en el contexto
+                global de las organizaciones de salud, para la incorporación, consolidación, y puesta en práctica de estrategias
+                que permitan la ejecución de una política integral en igualdad de género, inclusión social y etnicidad,
+                en donde las instituciones logren demostrar una implementación del 70% de las directrices planteadas 
+                por el premio (cultura organizacional, acciones afirmativas y transversalización del enfoque  diferencial y
+                de género en atención integral en salud tanto poblacional, territorial, salud familiar, salud comunitaria, 
+                monitoreo y seguimiento de las adecuaciones y resultados en salud derivados de la transversalización de los enfoques)
+                con un impacto demostrado en los resultados de salud del paciente, y su ecosistema poblacional y territorial. 
+                </td>
+                <td></td>
+            </tr>
             <tr>      
                     <th class="table-eva">ESTRUCTURA</th>
                     <th></th>
             </tr>      
     <tr>
-        <th>Recomendacion</th> 
+        <th>Recomendación</th> 
         <th></th>
     </tr>
     <tr>
@@ -112,6 +125,7 @@
                             @endif                                          
                     @endforeach           
             </td>
+            <td></td>
     </tr>
     <tr>
         <th>Criterios</th>
@@ -125,11 +139,12 @@
                     @endif                   
                 @endforeach 
              </td>
+             <td></td>
     </tr>
 
     <tr>
         <th>
-           Evaluacion
+           Evaluación
         </th>
         <th></th>
     </tr>
@@ -140,7 +155,7 @@
             {{$scale->scale}}
         </td>
         <td>
-            <input type="radio" name="scaleenfoqueEstructura39" value="{{$scale->valor}}" {{ old('scaleenfoqueEstructura39') == "$scale->valor" ? 'checked' : '' }}> 
+            <input type="radio" name="scaleenfoqueEstructura39" value="{{$scale->valor}}" @foreach ($is as $i) {{ $i->estructura == "$scale->valor" ? 'checked' : ''}}  @endforeach {{ old('scaleenfoqueEstructura39') == "$scale->valor" ? 'checked' : '' }}> 
         </td>
        @endif
          
@@ -151,7 +166,7 @@
     <table class="table table-striped container-table table-resp">
     <br>
     <tr>
-        <th>Recomendacion</th> 
+        <th>Recomendación</th> 
         <th></th>
     </tr>
     <tr>
@@ -180,7 +195,7 @@
 
     <tr>
         <th>
-           Evaluacion
+           Evaluación
         </th>
         <th></th>
     </tr>
@@ -191,7 +206,7 @@
             {{$scale->scale}}
         </td>
         <td>
-            <input type="radio" name="scaleenfoqueEstructura40" value="{{$scale->valor}}" {{ old('scaleenfoqueEstructura40') == "$scale->valor" ? 'checked' : '' }}> 
+            <input type="radio" name="scaleenfoqueEstructura40" value="{{$scale->valor}}" @foreach ($is as $i) {{ $i->estructura2 == "$scale->valor" ? 'checked' : ''}}  @endforeach {{ old('scaleenfoqueEstructura40') == "$scale->valor" ? 'checked' : '' }}> 
         </td>
        @endif
          
@@ -203,7 +218,7 @@
     <table class="table table-striped container-table table-resp">
     <br>
     <tr>
-        <th>Recomendacion</th> 
+        <th>Recomendación</th> 
         <th></th>
     </tr>
     <tr>
@@ -232,7 +247,7 @@
 
     <tr>
         <th>
-           Evaluacion
+           Evaluación
         </th>
         <th></th>
     </tr>
@@ -243,7 +258,7 @@
             {{$scale->scale}}
         </td>
         <td>
-            <input type="radio" name="scaleenfoqueEstructura41" value="{{$scale->valor}}" {{ old('scaleenfoqueEstructura41') == "$scale->valor" ? 'checked' : '' }}> 
+            <input type="radio" name="scaleenfoqueEstructura41" value="{{$scale->valor}}" @foreach ($is as $i) {{ $i->estructura3 == "$scale->valor" ? 'checked' : ''}}  @endforeach {{ old('scaleenfoqueEstructura41') == "$scale->valor" ? 'checked' : '' }}> 
         </td>
        @endif
          
@@ -254,7 +269,7 @@
     <br>
     <BR></BR>
     <table class="table table-striped container-table table-resp">   
-            <th class="table-eva">Evaluacion Enfoque diferencial en las atenciones del prestador</th>  
+            <th class="table-eva">Evaluación Enfoque diferencial en las atenciones del prestador</th>  
             <th></th>  
             <br>
             
@@ -263,7 +278,7 @@
                     <th></th>
             </tr>      
     <tr>
-        <th>Recomendacion</th> 
+        <th>Recomendación</th> 
         <th></th>
     </tr>
     <tr>
@@ -293,7 +308,7 @@
 
     <tr>
         <th>
-           Evaluacion
+           Evaluación
         </th>
         <th></th>
     </tr>
@@ -304,7 +319,7 @@
             {{$scale->scale}}
         </td>
         <td>
-            <input type="radio" name="scaleenfoqueproceso42" value="{{$scale->valor}}" {{ old('scaleenfoqueproceso42') == "$scale->valor" ? 'checked' : '' }}> 
+            <input type="radio" name="scaleenfoqueproceso42" value="{{$scale->valor}}" @foreach ($is as $i) {{ $i->proceso == "$scale->valor" ? 'checked' : ''}}  @endforeach {{ old('scaleenfoqueproceso42') == "$scale->valor" ? 'checked' : '' }}> 
         </td>
        @endif
          
@@ -318,7 +333,7 @@
             
             <br>   
     <tr>
-        <th>Recomendacion</th> 
+        <th>Recomendación</th> 
         <th></th>
     </tr>
     <tr>
@@ -347,7 +362,7 @@
 
     <tr>
         <th>
-           Evaluacion
+           Evaluación
         </th>
         <th></th>
     </tr>
@@ -358,7 +373,7 @@
             {{$scale->scale}}
         </td>
         <td>
-            <input type="radio" name="scaleenfoqueproceso43" value="{{$scale->valor}}" {{ old('scaleenfoqueproceso43') == "$scale->valor" ? 'checked' : '' }}> 
+            <input type="radio" name="scaleenfoqueproceso43" value="{{$scale->valor}}" @foreach ($is as $i) {{ $i->proceso2 == "$scale->valor" ? 'checked' : ''}}  @endforeach {{ old('scaleenfoqueproceso43') == "$scale->valor" ? 'checked' : '' }}> 
         </td>
        @endif
          
@@ -368,7 +383,7 @@
     
     <br><br><br>
     <table class="table table-striped container-table table-resp">   
-            <th class="table-eva">Evaluacion Enfoque diferencial en las atenciones del prestador</th>  
+            <th class="table-eva">Evaluación Enfoque diferencial en las atenciones del prestador</th>  
             <th></th>  
             <br>
             
@@ -378,7 +393,7 @@
                     
             </tr>      
     <tr>
-        <th>Recomendacion</th> 
+        <th>Recomendación</th> 
         <th></th>
     </tr>
     <tr>
@@ -408,7 +423,7 @@
 
     <tr>
         <th>
-           Evaluacion
+           Evaluación
         </th>
         <th></th>
     </tr>
@@ -419,7 +434,7 @@
             {{$scale->scale}}
         </td>
         <td>
-            <input type="radio" name="scaleenfoqueresultado44" value="{{$scale->valor}}" {{ old('scaleenfoqueresultado44') == "$scale->valor" ? 'checked' : '' }}> 
+            <input type="radio" name="scaleenfoqueresultado44" value="{{$scale->valor}}"  @foreach ($is as $i) {{ $i->resultado == "$scale->valor" ? 'checked' : ''}}  @endforeach {{ old('scaleenfoqueresultado44') == "$scale->valor" ? 'checked' : '' }}> 
         </td>
        @endif
          
@@ -431,7 +446,10 @@
     <input type="hidden" name="category" value="4">
     <center>
         <button type="button" class="button-edit" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            Enviar
+            Enviar y guardar
+        </button>
+        <button type="button" class="button-edit" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+            Salvar
         </button>
     </center>
     
@@ -441,15 +459,32 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Enviar evaluacion</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Enviar evaluación</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        ¿Seguro que desea enviar la evaluacion?
-        Una vez enviada no se podran hacer modificaciones.
+        ¿Seguro que desea enviar la evaluación?
+        Una vez enviada no se podrán hacer modificaciones.
       </div>
       <div class="modal-footer">
-        <input type="submit" value="Enviar" name="Enviar" class="button-edit">
+        <input type="submit" value="Enviar y guardar" name="Enviar" class="button-edit" formaction="{{url('Premio_nacional_OES/Evaluadores/consultaInscripcion/'.$inscripcion->id.'/evaluacionenfoque')}}">
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Salvar evaluación</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ¿Seguro que desea salvar la evaluación?
+      </div>
+      <div class="modal-footer">
+      <input type="submit" value="salvar" class="button-edit" name="Enviar" formaction="{{url('Premio_nacional_OES/Evaluadores/consultaInscripcion/'.$inscripcion->id.'/salvarevaluacionenfoque')}}">
       </div>
     </div>
   </div>

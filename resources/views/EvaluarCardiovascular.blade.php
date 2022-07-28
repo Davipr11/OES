@@ -19,11 +19,11 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent2">
             <ul class="navbar-nav mx-auto">
                 <li class="nav-item mx-2 py-2 ">
-                <button type="button" class="btn-an" style="background-color:#006799; color:white ">
-                <a href="https://app.premiocalidadaps.com.co/Premio_nacional_OES/Evaluadores">home</a>
-            </button>
+                <button type="button" class="btn-an" style="background-color:#006799; color:white" onclick="history.back()">
+                    Atras        
+                </button>
                 </li>
-                @if (auth()->user()->Tipo_Usuario==1)
+                @if(auth()->user()->Tipo_Usuario==1)
                 <li class="nav-item mx-2 py-2">
                 <button type="button" class="btn-an" style="background-color:#006799; color:white ">
                 <a href="https://app.premiocalidadaps.com.co/Premio_nacional_OES/Evaluadores/register">Crear Usuario</a>
@@ -36,7 +36,7 @@
                 </button>
                 </li>
                 
-                @if (auth()->user()->Tipo_Usuario==1)
+                @if(auth()->user()->Tipo_Usuario==1)
                 <li class="nav-item mx-2 py-2 ">
                 <button type="button" class="btn-an" style="background-color:#006799; color:white ">
                 <a href="https://app.premiocalidadaps.com.co/Premio_Nacional_OES/Evaluadores/consulta/show">Usuarios</a>
@@ -48,7 +48,7 @@
                 <a href="https://app.premiocalidadaps.com.co/Premio_Nacional_OES/Evaluadores/consultaInscripcion">Inscripciones</a>
             </button>
                 </li>
-                @if (auth()->user()->Tipo_Usuario==1)
+                @if(auth()->user()->Tipo_Usuario==1)
                 <li class="nav-item mx-2 py-2">
                 <button type="button" class="btn-an" style="background-color:#006799; color:white ">
                 <a href="https://app.premiocalidadaps.com.co/Premio_nacional_OES/Evaluadores/respuesta">Preguntas</a>
@@ -63,7 +63,7 @@
                 @auth
                 <li class="nav-item mx-2 py-2">
                 <button type="button" class="btn-an" style="background-color:#006799; color:white ">
-                <a href="https://app.premiocalidadaps.com.co/logout">Cerrar sesion</a>
+                <a href="https://app.premiocalidadaps.com.co/logout">Cerrar sesión</a>
                 </button>
                 </li> 
                 @endauth  
@@ -77,24 +77,32 @@
 </head>
 <body>
     <center>
-            <h1 style="color: #009FE3">Evaluacion de la inscripcion {{$inscripcion->Codigorandom}}</h1>
+            <h1 style="color: #009FE3">Evaluacion de la inscripción {{$inscripcion->Codigorandom}}</h1>
         </center>
     
     
-    <form action="{{url('Premio_nacional_OES/Evaluadores/consultaInscripcion/'.$inscripcion->id.'/evaluacioncardio')}}" method="post">
+    <form method="post">
     @csrf
     <table class="table table-striped container-table table-resp">   
-            <th class="table-eva">Evaluacion Deteccion temprana de enfermedades cardiovasculares</th>
+            <th class="table-eva">Evaluación Detección temprana de enfermedades cardiovasculares</th>
             <th></th>    
             <br>
-            
+            <tr>
+                <td>
+                Definir, ordenar e integrar las acciones e intervenciones requeridas
+                para abordar en el enfoque de APS a las personas con riesgo cardio- vascular metabólico,
+                en donde las instituciones logren demostrar una implementación del 70% de los estándares definidos
+                en el marco de este premio con un impacto demostrado en los resultados de salud,
+                haciendo énfasis en la disminución de la mortalidad prematura por enfermedades cardiovasculares.
+                </td>
+            </tr>
             <tr>      
                     <th class="table-eva">ESTRUCTURA</th>
                     <th></th>
                     
             </tr>      
     <tr>
-        <th>Recomendacion</th> 
+        <th>Recomendación</th> 
         <th></th>
     </tr>
     <tr>
@@ -111,6 +119,7 @@
                             @endif                                          
                     @endforeach           
             </td>
+            <td></td>
     </tr>
     <tr>
         <th>Criterios</th>
@@ -124,11 +133,12 @@
                     @endif                   
                 @endforeach 
              </td>
+             <td></td>
     </tr>
 
     <tr>
         <th>
-           Evaluacion
+           Evaluación
         </th>
         <th></th>
     </tr>
@@ -138,9 +148,12 @@
         <td> 
             {{$scale->scale}}
         </td>
-        <td>
-            <input type="radio" name="scalecardioEstructura14" value="{{$scale->valor}}" {{ old('scalecardioEstructura14') == "$scale->valor" ? 'checked' : '' }}> 
-        </td>
+        
+        <td>          
+                <input type="radio" name="scalecardioEstructura14" value="{{$scale->valor}}" @foreach ($is as $i) {{ $i->estructura == "$scale->valor" ? 'checked' : ''}}  @endforeach {{ old('scalecardioEstructura14') == "$scale->valor" ? 'checked' : '' }}>      
+        </td> 
+        
+        
        @endif
          
     @endforeach 
@@ -150,7 +163,7 @@
     <table class="table table-striped container-table table-resp">
     <br>
     <tr>
-        <th>Recomendacion</th> 
+        <th>Recomendación</th> 
         <th></th>
     </tr>
     <tr>
@@ -179,7 +192,7 @@
 
     <tr>
         <th>
-           Evaluacion
+           Evaluación
         </th>
         <th></th>
     </tr>
@@ -190,7 +203,7 @@
             {{$scale->scale}}
         </td>
         <td>
-            <input type="radio" name="scalecardioEstructura15" value="{{$scale->valor}}" {{ old('scalecardioEstructura15') == "$scale->valor" ? 'checked' : '' }}> 
+            <input type="radio" name="scalecardioEstructura15" value="{{$scale->valor}}" @foreach ($is as $i) {{ $i->estructura2 == "$scale->valor" ? 'checked' : ''}}  @endforeach  {{ old('scalecardioEstructura15') == "$scale->valor" ? 'checked' : '' }}> 
         </td>
        @endif
          
@@ -200,7 +213,7 @@
     <br>
     <BR></BR>
     <table class="table table-striped container-table table-resp">   
-            <th class="table-eva">Evaluacion Deteccion temprana de enfermedades cardiovasculares</th>  
+            <th class="table-eva">Evaluación Detección temprana de enfermedades cardiovasculares</th>  
             <th></th>  
             <br>
             
@@ -210,7 +223,7 @@
                     
             </tr>      
     <tr>
-        <th>Recomendacion</th> 
+        <th>Recomendación</th> 
         <th></th>
     </tr>
     <tr>
@@ -240,7 +253,7 @@
 
     <tr>
         <th>
-           Evaluacion
+           Evaluación
         </th>
         <th></th>
     </tr>
@@ -251,7 +264,7 @@
             {{$scale->scale}}
         </td>
         <td>
-            <input type="radio" name="scalecardioproceso16" value="{{$scale->valor}}" {{ old('scalecardioproceso16') == "$scale->valor" ? 'checked' : '' }}> 
+            <input type="radio" name="scalecardioproceso16" value="{{$scale->valor}}" @foreach ($is as $i) {{ $i->proceso == "$scale->valor" ? 'checked' : ''}}  @endforeach {{ old('scalecardioproceso16') == "$scale->valor" ? 'checked' : '' }}> 
         </td>
        @endif
          
@@ -265,7 +278,7 @@
             
             <br>   
     <tr>
-        <th>Recomendacion</th> 
+        <th>Recomendación</th> 
         <th></th>
     </tr>
     <tr>
@@ -294,7 +307,7 @@
 
     <tr>
         <th>
-           Evaluacion
+           Evaluación
         </th>
         <th></th>
     </tr>
@@ -305,7 +318,7 @@
             {{$scale->scale}}
         </td>
         <td>
-            <input type="radio" name="scalecardioproceso17" value="{{$scale->valor}}" {{ old('scalecardioproceso17') == "$scale->valor" ? 'checked' : '' }}> 
+            <input type="radio" name="scalecardioproceso17" value="{{$scale->valor}}" @foreach ($is as $i) {{ $i->proceso2 == "$scale->valor" ? 'checked' : ''}}  @endforeach {{ old('scalecardioproceso17') == "$scale->valor" ? 'checked' : '' }}> 
         </td>
        @endif
          
@@ -319,7 +332,7 @@
     <table class="table table-striped container-table table-resp">     
             <br>   
     <tr>
-        <th>Recomendacion</th>
+        <th>Recomendación</th>
         <th></th> 
     </tr>
     <tr>
@@ -350,7 +363,7 @@
 
     <tr>
         <th>
-           Evaluacion
+           Evaluación
         </th>
         <th></th>
     </tr>
@@ -361,7 +374,7 @@
             {{$scale->scale}}
         </td>
         <td>
-            <input type="radio" name="scalecardioproceso18" value="{{$scale->valor}}" {{ old('scalecardioproceso18') == "$scale->valor" ? 'checked' : '' }}> 
+            <input type="radio" name="scalecardioproceso18" value="{{$scale->valor}}" @foreach ($is as $i) {{ $i->proceso3 == "$scale->valor" ? 'checked' : ''}}  @endforeach {{ old('scalecardioproceso18') == "$scale->valor" ? 'checked' : '' }}> 
         </td>
        @endif
          
@@ -375,7 +388,7 @@
     <table class="table table-striped container-table table-resp">     
             <br>   
     <tr>
-        <th>Recomendacion</th>
+        <th>Recomendación</th>
         <th></th> 
     </tr>
     <tr>
@@ -404,7 +417,7 @@
 
     <tr>
         <th>
-           Evaluacion
+           Evaluación
         </th>
         <th></th>
     </tr>
@@ -415,7 +428,7 @@
             {{$scale->scale}}
         </td>
         <td>
-            <input type="radio" name="scalecardioproceso19" value="{{$scale->valor}}" {{ old('scalecardioproceso19') == "$scale->valor" ? 'checked' : '' }}> 
+            <input type="radio" name="scalecardioproceso19" value="{{$scale->valor}}" @foreach ($is as $i) {{ $i->proceso4 == "$scale->valor" ? 'checked' : ''}}  @endforeach {{ old('scalecardioproceso19') == "$scale->valor" ? 'checked' : '' }}> 
         </td>
        @endif
          
@@ -429,7 +442,7 @@
     <table class="table table-striped container-table table-resp">     
             <br>   
     <tr>
-        <th>Recomendacion</th> 
+        <th>Recomendación</th> 
         <th></th>
     </tr>
     <tr>
@@ -459,7 +472,7 @@
 
     <tr>
         <th>
-           Evaluacion
+           Evaluación
         </th>
         <th></th>
     </tr>
@@ -470,7 +483,7 @@
             {{$scale->scale}}
         </td>
         <td>
-            <input type="radio" name="scalecardioproceso20" value="{{$scale->valor}}" {{ old('scalecardioproceso20') == "$scale->valor" ? 'checked' : '' }}> 
+            <input type="radio" name="scalecardioproceso20" value="{{$scale->valor}}" @foreach ($is as $i) {{ $i->proceso5 == "$scale->valor" ? 'checked' : ''}}  @endforeach {{ old('scalecardioproceso20') == "$scale->valor" ? 'checked' : '' }}> 
         </td>
        @endif
          
@@ -485,7 +498,7 @@
     <table class="table table-striped container-table table-resp">     
             <br>   
     <tr>
-        <th>Recomendacion</th> 
+        <th>Recomendación</th> 
         <th></th>
     </tr>
     <tr>
@@ -515,7 +528,7 @@
 
     <tr>
         <th>
-           Evaluacion
+           Evaluación
         </th>
         <th></th>
     </tr>
@@ -526,7 +539,7 @@
             {{$scale->scale}}
         </td>
         <td>
-            <input type="radio" name="scalecardioproceso21" value="{{$scale->valor}}" {{ old('scalecardioproceso21') == "$scale->valor" ? 'checked' : '' }}> 
+            <input type="radio" name="scalecardioproceso21" value="{{$scale->valor}}"  @foreach ($is as $i) {{ $i->proceso6 == "$scale->valor" ? 'checked' : ''}}  @endforeach {{ old('scalecardioproceso21') == "$scale->valor" ? 'checked' : '' }}> 
         </td>
        @endif
          
@@ -540,7 +553,7 @@
     <table class="table table-striped container-table table-resp">     
             <br>   
     <tr>
-        <th>Recomendacion</th> 
+        <th>Recomendación</th> 
         <th></th>
     </tr>
     <tr>
@@ -570,7 +583,7 @@
 
     <tr>
         <th>
-           Evaluacion
+           Evaluación
         </th>
         <th></th>
     </tr>
@@ -581,7 +594,7 @@
             {{$scale->scale}}
         </td>
         <td>
-            <input type="radio" name="scalecardioproceso22" value="{{$scale->valor}}" {{ old('scalecardioproceso22') == "$scale->valor" ? 'checked' : '' }}> 
+            <input type="radio" name="scalecardioproceso22" value="{{$scale->valor}}" @foreach ($is as $i) {{ $i->proceso7 == "$scale->valor" ? 'checked' : ''}}  @endforeach {{ old('scalecardioproceso22') == "$scale->valor" ? 'checked' : '' }}> 
         </td>
        @endif
          
@@ -596,7 +609,7 @@
     <table class="table table-striped container-table table-resp">     
             <br>   
     <tr>
-        <th>Recomendacion</th> 
+        <th>Recomendación</th> 
         <th></th>
     </tr>
     <tr>
@@ -626,7 +639,7 @@
 
     <tr>
         <th>
-           Evaluacion
+           Evaluación
         </th>
         <th></th>
     </tr>
@@ -637,7 +650,7 @@
             {{$scale->scale}}
         </td>
         <td>
-            <input type="radio" name="scalecardioproceso23" value="{{$scale->valor}}" {{ old('scalecardioproceso23') == "$scale->valor" ? 'checked' : '' }}> 
+            <input type="radio" name="scalecardioproceso23" value="{{$scale->valor}}" @foreach ($is as $i) {{ $i->proceso8 == "$scale->valor" ? 'checked' : ''}}  @endforeach {{ old('scalecardioproceso23') == "$scale->valor" ? 'checked' : '' }}> 
         </td>
        @endif
          
@@ -651,7 +664,7 @@
     <table class="table table-striped container-table table-resp">     
             <br>   
     <tr>
-        <th>Recomendacion</th> 
+        <th>Recomendación</th> 
         <th></th>
     </tr>
     <tr>
@@ -681,7 +694,7 @@
 
     <tr>
         <th>
-           Evaluacion
+           Evaluación
         </th>
         <th></th>
     </tr>
@@ -692,7 +705,7 @@
             {{$scale->scale}}
         </td>
         <td>
-            <input type="radio" name="scalecardioproceso24" value="{{$scale->valor}}" {{ old('scalecardioproceso24') == "$scale->valor" ? 'checked' : '' }}> 
+            <input type="radio" name="scalecardioproceso24" value="{{$scale->valor}}" @foreach ($is as $i) {{ $i->proceso9 == "$scale->valor" ? 'checked' : ''}}  @endforeach {{ old('scalecardioproceso24') == "$scale->valor" ? 'checked' : '' }}> 
         </td>
        @endif
          
@@ -704,7 +717,7 @@
     <BR></BR>
 
     <table class="table table-striped container-table table-resp">   
-            <th class="table-eva">Evaluacion Deteccion temprana de enfermedades cardiovasculares</th>  
+            <th class="table-eva">Evaluación Detección temprana de enfermedades cardiovasculares</th>  
             <th></th>  
             <br>
             
@@ -714,7 +727,7 @@
                     
             </tr>      
     <tr>
-        <th>Recomendacion</th> 
+        <th>Recomendación</th> 
         <th></th>
     </tr>
     <tr>
@@ -744,7 +757,7 @@
 
     <tr>
         <th>
-           Evaluacion
+           Evaluación
         </th>
         <th></th>
     </tr>
@@ -755,7 +768,7 @@
             {{$scale->scale}}
         </td>
         <td>
-            <input type="radio" name="scalecardioresultado25" value="{{$scale->valor}}" {{ old('scalecardioresultado25') == "$scale->valor" ? 'checked' : '' }}> 
+            <input type="radio" name="scalecardioresultado25" value="{{$scale->valor}}" @foreach ($is as $i) {{ $i->resultado == "$scale->valor" ? 'checked' : ''}}  @endforeach {{ old('scalecardioresultado25') == "$scale->valor" ? 'checked' : '' }}> 
         </td>
        @endif
          
@@ -767,7 +780,7 @@
     <table class="table table-striped container-table table-resp">     
             <br>   
     <tr>
-        <th>Recomendacion</th> 
+        <th>Recomendación</th> 
         <th></th>
     </tr>
     <tr>
@@ -797,7 +810,7 @@
 
     <tr>
         <th>
-           Evaluacion
+           Evaluación
         </th>
         <th></th>
     </tr>
@@ -808,7 +821,7 @@
             {{$scale->scale}}
         </td>
         <td>
-            <input type="radio" name="scalecardioresultado26" value="{{$scale->valor}}" {{ old('scalecardioresultado26') == "$scale->valor" ? 'checked' : '' }}> 
+            <input type="radio" name="scalecardioresultado26" value="{{$scale->valor}}" @foreach ($is as $i) {{ $i->resultado2 == "$scale->valor" ? 'checked' : ''}}  @endforeach {{ old('scalecardioresultado26') == "$scale->valor" ? 'checked' : '' }}> 
         </td>
        @endif
          
@@ -826,7 +839,7 @@
     <table class="table table-striped container-table table-resp">     
             <br>   
     <tr>
-        <th>Recomendacion</th> 
+        <th>Recomendación</th> 
         <th></th>
     </tr>
     <tr>
@@ -856,7 +869,7 @@
 
     <tr>
         <th>
-           Evaluacion
+           Evaluación
         </th>
         <th></th>
     </tr>
@@ -867,7 +880,7 @@
             {{$scale->scale}}
         </td>
         <td>
-            <input type="radio" name="scalecardioresultado27" value="{{$scale->valor}}" {{ old('scalecardioresultado27') == "$scale->valor" ? 'checked' : '' }}> 
+            <input type="radio" name="scalecardioresultado27" value="{{$scale->valor}}" @foreach ($is as $i) {{ $i->resultado3 == "$scale->valor" ? 'checked' : ''}}  @endforeach {{ old('scalecardioresultado27') == "$scale->valor" ? 'checked' : '' }}> 
         </td>
        @endif
          
@@ -878,7 +891,7 @@
     <table class="table table-striped container-table table-resp">     
             <br>   
     <tr>
-        <th>Recomendacion</th> 
+        <th>Recomendación</th> 
         <th></th>
     </tr>
     <tr>
@@ -908,7 +921,7 @@
 
     <tr>
         <th>
-           Evaluacion
+           Evaluación
         </th>
         <th></th>
     </tr>
@@ -919,7 +932,7 @@
             {{$scale->scale}}
         </td>
         <td>
-            <input type="radio" name="scalecardioresultado28" value="{{$scale->valor}}" {{ old('scalecardioresultado28') == "$scale->valor" ? 'checked' : '' }}> 
+            <input type="radio" name="scalecardioresultado28" value="{{$scale->valor}}" @foreach ($is as $i) {{ $i->resultado4 == "$scale->valor" ? 'checked' : ''}}  @endforeach {{ old('scalecardioresultado28') == "$scale->valor" ? 'checked' : '' }}> 
         </td>
        @endif
          
@@ -930,10 +943,15 @@
     <br><br><br>
     <input type="hidden" name="codigoUsuario" value="{{$inscripcion->Codigorandom}}">
     <input type="hidden" name="category" value="2">
+    
     <center>
         <button type="button" class="button-edit" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            Enviar
+            Enviar y guardar
         </button>
+        <button type="button" class="button-edit" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+            Salvar
+        </button>
+        
     </center>
     
 
@@ -942,15 +960,32 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Enviar evaluacion</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Enviar evaluación</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        ¿Seguro que desea enviar la evaluacion?
-        Una vez enviada no se podran hacer modificaciones.
+        ¿Seguro que desea enviar la evaluación?
+        Una vez enviada no se podrán hacer modificaciones.
       </div>
       <div class="modal-footer">
-        <input type="submit" value="Enviar" name="Enviar" class="button-edit">
+        <input type="submit" value="Enviar y guardar" name="Enviar" class="button-edit" formaction="{{url('Premio_nacional_OES/Evaluadores/consultaInscripcion/'.$inscripcion->id.'/evaluacioncardio')}}">
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Salvar evaluación</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ¿Seguro que desea salvar la evaluación?
+      </div>
+      <div class="modal-footer">
+      <input type="submit" value="salvar" class="button-edit" name="Enviar" formaction="{{url('Premio_nacional_OES/Evaluadores/consultaInscripcion/'.$inscripcion->id.'/salvarevaluacioncardio')}}">
       </div>
     </div>
   </div>

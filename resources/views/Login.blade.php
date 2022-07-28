@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{{asset('css/estilos.css')}}">
     <link rel="icon" type="image/x-icon" href="{{asset('premionacional.png')}}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Premio Calidad</title>
     <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light"> <a class="navbar-brand" href="https://premiocalidadaps.com.co/"><img src="{{asset('logominisalud.png')}}" alt=""></a>       
             <div class="container-fluid">
@@ -46,7 +46,7 @@
     <br><br><br>
     <center>
                <span>
-                <b><h3 style="color: #009FE3 ">Inicio de sesion</h3></b>
+                <b><h3 style="color: #009FE3 ">Inicio de sesión</h3></b>
             </span> 
     </center>
     <br>

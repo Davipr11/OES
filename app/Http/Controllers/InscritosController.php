@@ -12,7 +12,10 @@ use Illuminate\Support\Facades\DB;
 class InscritosController extends Controller
 {
     public function index(){
-        return view('inscritos');
+        if(Auth::check()){
+            return view('inscritos');
+        }
+        return view('Login');
     }
 
     public function Inscritos(){

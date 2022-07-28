@@ -13,13 +13,23 @@ class UsersInscriptionController extends Controller
     }
 
     public function inscribir(UsersInscriptionRequest $request){
-        $userinscripcion=users_inscription::create($request->validated());
-        return redirect('Premio_Nacional_OES/inscripcion')->withSuccess('Ha sido inscrito');
+        try {
+            $userinscripcion=users_inscription::create($request->validated());
+            return redirect('Premio_Nacional_OES/inscripcion')->withSuccess('Ha sido inscrito');
+        } catch (\Throwable $th) {
+            return redirect()->back()->withErrors('Error');
+        }
+        
     }
 
     public function update(InscripcionupdateRequest $request, $id){
-        $inscrito=$request->validated();
-        users_inscription::where('id','=',$id)->update($inscrito);
-        return redirect('/Premio_Nacional_OES/Evaluadores/consultaInscripcion'); 
+        try {
+            $inscrito=$request->validated();
+            users_inscription::where('id','=',$id)->update($inscrito);
+            return redirect('/Premio_Nacional_OES/Evaluadores/consultaInscripcion'); 
+        } catch (\Throwable $th) {
+            return redirect()->back()->withErrors('Error');
+        }
+        
     }
 }

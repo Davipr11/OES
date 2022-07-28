@@ -11,9 +11,24 @@ class ScalesUser extends Model
     
     protected $fillable = [
         'estructura',
+        'estructura2',
+        'estructura3',
         'proceso',
-        'resultado',      
+        'proceso2',
+        'proceso3',
+        'proceso4',
+        'proceso5',
+        'proceso6',
+        'proceso7',
+        'proceso8',
+        'proceso9',
+        'resultado',
+        'resultado2',
+        'resultado3',
+        'resultado4',
+        'resultado5',      
         'codigoUsuario',
         'category',
+        'completado',
     ];
 }

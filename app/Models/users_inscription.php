@@ -48,7 +48,8 @@ class users_inscription extends Model
          ui.programas_atencion_diabetes, ui.programas_atencion_hta, ui.procesos_atencion_deteccion_temprana_cancer,
          ui.enfoque_diferencial_procesos_atencion,ui.Codigorandom, ui.created_at FROM users_inscriptions ui
         inner join municipios m on m.id=ui.municipio
-        inner join departamentos d on d.id=m.id_departamento');
+        inner join departamentos d on d.id=m.id_departamento
+        order by ui.created_at');
         return $datos;
     }
 }

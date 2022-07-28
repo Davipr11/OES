@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{{asset('css/estilos.css')}}">
     <link rel="icon" type="image/x-icon" href="{{asset('premionacional.png')}}">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    <title>Evaluador</title>
+    <title>Premio Calidad</title>
     <header>   
     <nav class="navbar navbar-expand-lg navbar-light bg-light"> <a class="navbar-brand" href="https://premiocalidadaps.com.co/"><img src="{{asset('logominisalud.png')}}" alt=""></a>       
             <div class="container-fluid">
@@ -47,7 +47,7 @@
                 @auth
                 <li class="nav-item mx-2 py-2">
                 <button type="button" class="btn-a" style="background-color:#006799; color:white ">
-                <a href="https://app.premiocalidadaps.com.co/logout">Cerrar sesion</a>
+                <a href="https://app.premiocalidadaps.com.co/logout">Cerrar sesión</a>
                 </button>
                 </li> 
                 @endauth  
@@ -65,7 +65,11 @@
     <div class="container">
         
             <center><h3 style="color: #009FE3">Evaluador</h3></center>
-           
+            @if($errors->any())
+                    <div class="alert alert-danger" role="alert">
+                        {!! implode('', $errors->all('<h6 class="error">:message</h6>')) !!}
+                    </div>
+            @endif
             <div class="d-grid gap-2 col-6 mx-auto">
             <a href="https://app.premiocalidadaps.com.co/Premio_Nacional_OES/Evaluadores/consultaInscripcion" class=" button-home-a">Consultar inscripciones</a>
             <a href="https://app.premiocalidadaps.com.co/cambiocontrasena" class="button-home-a">Cambiar contraseña</a>

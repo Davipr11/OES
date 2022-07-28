@@ -47,8 +47,8 @@ Route::get('/logout',[LogoutController::class, 'logout']);
 Route::get('/cambiocontrasena',[CambioContraseñaController::class, 'index'])->name('cambio');
 Route::post('/cambiocontrasena',[CambioContraseñaController::class, 'cambiar'])->name('cambiar');
 
-Route::get('/evaluador',[OperadorController::class, 'index']);
-Route::get('/evaluador2',[Operador2Controller::class, 'index']);
+Route::get('/Premio_nacional_OES/evaluador',[OperadorController::class, 'index']);
+Route::get('/Premio_nacional_OES/evaluador2',[Operador2Controller::class, 'index']);
 
 Route::resource('Premio_Nacional_OES/Evaluadores/consulta', ConsultarUsuariosController::class);
 
@@ -86,6 +86,11 @@ Route::post('/Premio_nacional_OES/Evaluadores/consultaInscripcion/{Codigorandom}
 Route::post('/Premio_nacional_OES/Evaluadores/consultaInscripcion/{Codigorandom}/evaluacioncardio',[EvaluarController::class, 'saveEvaluarcardio']);
 Route::post('/Premio_nacional_OES/Evaluadores/consultaInscripcion/{Codigorandom}/evaluacioncancer',[EvaluarController::class, 'saveEvaluarcancer']);
 Route::post('/Premio_nacional_OES/Evaluadores/consultaInscripcion/{Codigorandom}/evaluacionenfoque',[EvaluarController::class, 'saveEvaluarenfoque']);
+
+Route::post('/Premio_nacional_OES/Evaluadores/consultaInscripcion/{Codigorandom}/salvarevaluacionperinatal',[EvaluarController::class, 'salvarEvaluarPerinatal']);
+Route::post('/Premio_nacional_OES/Evaluadores/consultaInscripcion/{Codigorandom}/salvarevaluacioncardio',[EvaluarController::class, 'salvarEvaluarcardio']);
+Route::post('/Premio_nacional_OES/Evaluadores/consultaInscripcion/{Codigorandom}/salvarevaluacioncancer',[EvaluarController::class, 'salvarEvaluarcancer']);
+Route::post('/Premio_nacional_OES/Evaluadores/consultaInscripcion/{Codigorandom}/salvarevaluacionenfoque',[EvaluarController::class, 'salvarEvaluarenfoque']);
 
 Route::get('/Premio_nacional_OES/Evaluadores/consultaInscripcion/{Codigorandom}/resultado',[EvaluarController::class, 'resultado']);
 Route::get('/Premio_nacional_OES/Evaluadores/consultaInscripcion/{id}/resultadofinal',[EvaluarController::class, 'final']);

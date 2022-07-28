@@ -23,7 +23,7 @@ class ScaleCardioRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+            return [
             'scalecardioEstructura14'=>'required',
             'scalecardioEstructura15'=>'required',
             'scalecardioproceso16'=>'required',
@@ -40,28 +40,58 @@ class ScaleCardioRequest extends FormRequest
             'scalecardioresultado27'=>'required',
             'scalecardioresultado28'=>'required',
             'codigoUsuario'=>'required',
-            'category'=>'required'
-        ];
+            'category'=>'required',
+            
+            ];
+                 
+          
     }
 
 
     public function messages(){
         return[              
-            'required'=>'Por favor llene todas las evaluaciones'
+            'scalecardioEstructura14.required'=>'Por favor llene todas las evaluaciones de estructura',
+            'scalecardioEstructura15.required'=>'Por favor llene todas las evaluaciones de estructura',
+            'scalecardioproceso16.required'=>'Por favor llene todas las evaluaciones de proceso',
+            'scalecardioproceso17.required'=>'Por favor llene todas las evaluaciones de proceso',
+            'scalecardioproceso18.required'=>'Por favor llene todas las evaluaciones de proceso',
+            'scalecardioproceso19.required'=>'Por favor llene todas las evaluaciones de proceso',
+            'scalecardioproceso20.required'=>'Por favor llene todas las evaluaciones de proceso',
+            'scalecardioproceso21.required'=>'Por favor llene todas las evaluaciones de proceso',
+            'scalecardioproceso22.required'=>'Por favor llene todas las evaluaciones de proceso',
+            'scalecardioproceso23.required'=>'Por favor llene todas las evaluaciones de proceso',
+            'scalecardioproceso24.required'=>'Por favor llene todas las evaluaciones de proceso',
+            'scalecardioresultado25.required'=>'Por favor llene todas las evaluaciones de resultado',
+            'scalecardioresultado26.required'=>'Por favor llene todas las evaluaciones de resultado',
+            'scalecardioresultado27.required'=>'Por favor llene todas las evaluaciones de resultado',
+            'scalecardioresultado28.required'=>'Por favor llene todas las evaluaciones de resultado',
+            'codigoUsuario'=>'Error',
+            'category'=>'Error',
+
         ];       
     }
 
 
     public function getData(){  
         return[
-            'estructura'=>$this->get('scalecardioEstructura14')+$this->get('scalecardioEstructura15'),
-            'proceso'=>$this->get('scalecardioproceso16')+$this->get('scalecardioproceso17')+$this->get('scalecardioproceso18')
-            +$this->get('scalecardioproceso19')+$this->get('scalecardioproceso20')+$this->get('scalecardioproceso21')
-            +$this->get('scalecardioproceso22')+$this->get('scalecardioproceso23')+$this->get('scalecardioproceso24'),
-            'resultado'=>$this->get('scalecardioresultado25')+$this->get('scalecardioresultado26')+$this->get('scalecardioresultado27')
-            +$this->get('scalecardioresultado28'),
+            'estructura'=>$this->get('scalecardioEstructura14'),
+            'estructura2'=>$this->get('scalecardioEstructura15'),
+            'proceso'=>$this->get('scalecardioproceso16'),
+            'proceso2'=>$this->get('scalecardioproceso17'),
+            'proceso3'=>$this->get('scalecardioproceso18'),
+            'proceso4'=>$this->get('scalecardioproceso19'),
+            'proceso5'=>$this->get('scalecardioproceso20'),
+            'proceso6'=>$this->get('scalecardioproceso21'),
+            'proceso7'=>$this->get('scalecardioproceso22'),
+            'proceso8'=>$this->get('scalecardioproceso23'),
+            'proceso9'=>$this->get('scalecardioproceso24'),
+            'resultado'=>$this->get('scalecardioresultado25'),
+            'resultado2'=>$this->get('scalecardioresultado26'),
+            'resultado3'=>$this->get('scalecardioresultado27'),
+            'resultado4'=>$this->get('scalecardioresultado28'),
             'codigoUsuario'=>$this->get('codigoUsuario'),
             'category'=>$this->get('category'),
+            'completado'=>1,
         ];
     }
 }

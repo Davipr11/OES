@@ -14,44 +14,70 @@ use App\Http\Requests\RespuestaRequest;
 class RespuestaController extends Controller
 {
     public function index(){
-        if(!Auth::check()){
-            return redirect('/Premio_nacional_OES/Evaluadores');
-        }else{
-                if(auth()->user()->Tipo_Usuario==1){
-                    $preguntas=DB::select('SELECT p.id, p.pregunta,p.email, p.created_at
-                    FROM preguntas p
-                    order by p.created_at DESC');
-                    
-                    $respuestas=DB::select('SELECT respuesta, id_pregunta
-                    FROM `respuestas`');
-                    return view('respuesta', compact('preguntas', 'respuestas'));
-                }else if(auth()->user()->Tipo_Usuario==2){
-                    return redirect('/evaluador');
+        try {
+                if(!Auth::check()){
+                    return redirect('/Premio_nacional_OES/Evaluadores');
                 }else{
-                    return redirect('/evaluador2');
+                        if(auth()->user()->Tipo_Usuario==1){
+                            $preguntas=DB::select('SELECT p.id, p.pregunta,p.email, p.created_at
+                            FROM preguntas p
+                            order by p.created_at DESC');
+                            
+                            $respuestas=DB::select('SELECT respuesta, id_pregunta
+                            FROM `respuestas`');
+                            return view('respuesta', compact('preguntas', 'respuestas'));
+                        }else if(auth()->user()->Tipo_Usuario==2){
+                            return redirect('/Premio_nacional_OES/evaluador');
+                        }else{
+                            return redirect('/Premio_nacional_OES/evaluador2');
+                        }
                 }
-        }
+            } catch (\Throwable $th) {
+                return redirect()->back()->withErrors('Error');
+            }
+        
         
     }
 
     public function responder(RespuestaRequest $request){
-        $respuesta=Respuesta::create($request->validated());
-        return redirect('Premio_nacional_OES/Evaluadores/respuesta')->withSuccess('Respondido');
+        try {
+           $respuesta=Respuesta::create($request->validated());
+            return redirect('Premio_nacional_OES/Evaluadores/respuesta')->withSuccess('Respondido');
+        } catch (\Throwable $th) {
+            return redirect()->back()->withErrors('Error');
+        }
+        
     }
 
     public function eliminar($id){
-        $pregunta= Pregunta::findOrFail($id);
-        $pregunta->delete();
-        return redirect('Premio_nacional_OES/Evaluadores/respuesta')->withSuccess('Eliminado');
+        try {
+            $pregunta= Pregunta::findOrFail($id);
+            $pregunta->delete();
+            return redirect('Premio_nacional_OES/Evaluadores/respuesta')->withSuccess('Eliminado');
+        } catch (\Throwable $th) {
+            return redirect()->back()->withErrors('Error');
+        }
+        
     }
 
     public function editar($id){
-        $pregunta=Pregunta::findOrFail($id);
-        return view('preguntaEdit', compact('pregunta'));
+        try {
+            $pregunta=Pregunta::findOrFail($id);
+            return view('preguntaEdit', compact('pregunta'));
+        } catch (\Throwable $th) {
+            return redirect()->back()->withErrors('Error');
+        }
+        
     }
     public function update($id){
-        $pregunta=request()->except(['_token', '_method', 'Editar']);
-        Pregunta::where('id','=',$id)->update($pregunta);       
-        return redirect('Premio_nacional_OES/Evaluadores/respuesta')->withSuccess('Editado ');
+
+        try {
+            $pregunta=request()->except(['_token', '_method', 'Editar']);
+            Pregunta::where('id','=',$id)->update($pregunta);       
+            return redirect('Premio_nacional_OES/Evaluadores/respuesta')->withSuccess('Editado ');
+        } catch (\Throwable $th) {
+            return redirect()->back()->withErrors('Error');
+        }
+        
     }
 }

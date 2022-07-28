@@ -38,27 +38,50 @@ class ScaleUsersRequest extends FormRequest
             'scaleperinatalResultado12'=>'required',
             'scaleperinatalResultado13'=>'required',
             'codigoUsuario'=>'required',
-            'category'=>'required'
+            'category'=>'required',
 
         ];
     }
 
     public function messages(){
         return[              
-            'required'=>'Por favor llene todas las evaluaciones'
+            'scaleperinatalEstructura1.required'=>'Por favor llene todas las evaluaciones de estructura',
+            'scaleperinatalEstructura2.required'=>'Por favor llene todas las evaluaciones de estructura',
+            'scaleperinatalproceso3.required'=>'Por favor llene todas las evaluaciones de proceso',
+            'scaleperinatalproceso4.required'=>'Por favor llene todas las evaluaciones de proceso',
+            'scaleperinatalproceso5.required'=>'Por favor llene todas las evaluaciones de proceso',
+            'scaleperinatalproceso6.required'=>'Por favor llene todas las evaluaciones de proceso',
+            'scaleperinatalproceso7.required'=>'Por favor llene todas las evaluaciones de proceso',
+            'scaleperinatalproceso8.required'=>'Por favor llene todas las evaluaciones de proceso',
+            'scaleperinatalResultado9.required'=>'Por favor llene todas las evaluaciones de resultado',
+            'scaleperinatalResultado10.required'=>'Por favor llene todas las evaluaciones de resultado',
+            'scaleperinatalResultado11.required'=>'Por favor llene todas las evaluaciones de resultado',
+            'scaleperinatalResultado12.required'=>'Por favor llene todas las evaluaciones de resultado',
+            'scaleperinatalResultado13.required'=>'Por favor llene todas las evaluaciones de resultado',
+            'codigoUsuario'=>'Error',
+            'category'=>'Error',
         ];       
     }
 
 
     public function getData(){  
         return[
-            'estructura'=>$this->get('scaleperinatalEstructura1')+$this->get('scaleperinatalEstructura2'),
-            'proceso'=>$this->get('scaleperinatalproceso3')+$this->get('scaleperinatalproceso4')+$this->get('scaleperinatalproceso5')
-            +$this->get('scaleperinatalproceso6')+$this->get('scaleperinatalproceso7')+$this->get('scaleperinatalproceso8'),
-            'resultado'=>$this->get('scaleperinatalResultado9')+$this->get('scaleperinatalResultado10')+$this->get('scaleperinatalResultado11')
-            +$this->get('scaleperinatalResultado12')+$this->get('scaleperinatalResultado13'),
+            'estructura'=>$this->get('scaleperinatalEstructura1'),
+            'estructura2'=>$this->get('scaleperinatalEstructura2'),
+            'proceso'=>$this->get('scaleperinatalproceso3'),
+            'proceso2'=>$this->get('scaleperinatalproceso4'),
+            'proceso3'=>$this->get('scaleperinatalproceso5'),
+            'proceso4'=>$this->get('scaleperinatalproceso6'),
+            'proceso5'=>$this->get('scaleperinatalproceso7'),
+            'proceso6'=>$this->get('scaleperinatalproceso8'),
+            'resultado'=>$this->get('scaleperinatalResultado9'),
+            'resultado2'=>$this->get('scaleperinatalResultado10'),
+            'resultado3'=>$this->get('scaleperinatalResultado11'),
+            'resultado4'=>$this->get('scaleperinatalResultado12'),
+            'resultado5'=>$this->get('scaleperinatalResultado13'),
             'codigoUsuario'=>$this->get('codigoUsuario'),
             'category'=>$this->get('category'),
+            'completado'=>1
         ];
     }
 

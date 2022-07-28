@@ -14,6 +14,10 @@ use App\Http\Requests\ScaleCardioRequest;
 use App\Http\Requests\ScaleCancerRequest;
 use App\Http\Requests\ScaleEnfoqueRequest;
 use App\Http\Requests\ResultRequest;
+use App\Http\Requests\ScaleSalvarCardioRequest;
+use App\Http\Requests\ScaleSalvarPerinatalRequest;
+use App\Http\Requests\ScaleSalvarCancerRequest;
+use App\Http\Requests\ScaleSalvarEnfoqueRequest;
 use App\Models\Result;
 use App\Models\Rule;
 
@@ -30,30 +34,28 @@ class EvaluarController extends Controller
     }
 
 
-
-
-
-
-
     public function evaluarPerinatal($Codigorandom, $category){
         if(Auth::check()){
             try {              
                 $is=ScalesUser::where('category',1)->get();
                 $theinscritos=users_inscription::where('id',$Codigorandom )->get();
-                foreach($theinscritos as $th){
-                    foreach($is as $i){
-                        if($i->codigoUsuario==$th->Codigorandom){
-                            return redirect('/Premio_nacional_OES/Evaluadores/consultaInscripcion/'.$Codigorandom.'/evaluaciones')->withErrors('Modulo ya evaluado');
-                        }
-                    }
-                }           
                 $inscripcion=users_inscription::findOrFail($Codigorandom);
                 $scales=Scale::all();
 
                 $rules=Rule::all();
                 $recommendations=Recommendation::where('category',$category )->get();
+                foreach($theinscritos as $th){
+                    foreach($is as $i){
+                        if($i->codigoUsuario==$th->Codigorandom && $i->completado==1){
+                            return redirect('/Premio_nacional_OES/Evaluadores/consultaInscripcion/'.$Codigorandom.'/evaluaciones')->withErrors('Modulo ya evaluado');
+                        }else if($i->codigoUsuario==$th->Codigorandom && $i->completado==0){
+                            return view('EvaluarPerinatal',  compact('inscripcion', 'recommendations', 'scales', 'rules', 'is'));
+                        }
+                    }
+                }           
+                
 
-                return view('EvaluarPerinatal', compact('inscripcion', 'recommendations', 'scales', 'rules'));
+                return view('EvaluarPerinatal', compact('inscripcion', 'recommendations', 'scales', 'rules', 'is'));
            
             } catch (\Throwable $th) {
                return redirect('/Premio_nacional_OES/Evaluadores')->withErrors('Error al evaluar');
@@ -64,42 +66,82 @@ class EvaluarController extends Controller
     }
 
 
-    
-
-
-
-
 
     public function saveEvaluar(ScaleUsersRequest $request, $Codigorandom){
         try {
+            $is=ScalesUser::where('category',1)->get();
+                $theinscritos=users_inscription::where('id',$Codigorandom )->get();
+
+                foreach($theinscritos as $th){
+                    foreach($is as $i){
+                        if($i->codigoUsuario==$th->Codigorandom && $i->completado==1){
+                            return redirect('/Premio_nacional_OES/Evaluadores/consultaInscripcion/'.$Codigorandom.'/evaluaciones')->withErrors('Modulo ya evaluado');
+                        }else if($i->codigoUsuario==$th->Codigorandom && $i->completado==0){
+                            $scaleuser=$request->validated();
+                            $scaleuser=$request->getData();  
+                             ScalesUser::where('CodigoUsuario','=',$i->codigoUsuario)->where('category',1)->update($scaleuser);
+
+                            return redirect('/Premio_nacional_OES/Evaluadores/consultaInscripcion/'.$Codigorandom.'/evaluaciones')->withSuccess('Evaluado Detección temprana de enfermedades cardiovasculares');
+                        }
+                    }
+                }  
             $datos=$request->validated();
             $datos=$request->getData();
             $scalesuser=ScalesUser::create($datos);
-            return redirect('/Premio_nacional_OES/Evaluadores/consultaInscripcion/'.$Codigorandom.'/evaluaciones')->withSuccess('Evaluado Atencion en salud Materno Perinatal');
+            return redirect('/Premio_nacional_OES/Evaluadores/consultaInscripcion/'.$Codigorandom.'/evaluaciones')->withSuccess('Evaluado Atención en salud Materno Perinatal');
         } catch (\Throwable $th) {
             return redirect('/Premio_Nacional_OES/Evaluadores/consultaInscripcion')->withErrors('Error al evaluar');
         }        
     }
 
+    public function salvarEvaluarPerinatal(ScaleSalvarPerinatalRequest $request, $Codigorandom){
+        try {
+            $is=ScalesUser::where('category',1)->get();
+                $theinscritos=users_inscription::where('id',$Codigorandom )->get();
+                foreach($theinscritos as $th){
+                    foreach($is as $i){
+                        if($i->codigoUsuario==$th->Codigorandom  && $i->completado==1){
+                            return redirect('/Premio_nacional_OES/Evaluadores/consultaInscripcion/'.$Codigorandom.'/evaluaciones')->withErrors('Modulo ya evaluado');
+                        }else if($i->codigoUsuario==$th->Codigorandom && $i->completado==0){
+
+                            $scaleuser=$request->validated();
+                            $scaleuser=$request->getData();  
+                            ScalesUser::where('CodigoUsuario','=',$i->codigoUsuario)->where('category',1)->update($scaleuser);
+
+                            return redirect('/Premio_nacional_OES/Evaluadores/consultaInscripcion/'.$Codigorandom.'/evaluaciones')->withSuccess('Salvado Atención en salud Materno Perinatal');
+                        }
+                    }
+                }                        
+                        $datos=$request->validated();
+                        $datos=$request->getData();                
+                    $scalesuser=ScalesUser::create($datos);
+            return redirect('/Premio_nacional_OES/Evaluadores/consultaInscripcion/'.$Codigorandom.'/evaluaciones')->withSuccess('Salvado Atención en salud Materno Perinatal');
+        } catch (\Throwable $th) {
+            return redirect('/Premio_Nacional_OES/Evaluadores/consultaInscripcion')->withErrors('Error al evaluar');
+        }        
+    }
         public function evaluarCardiovascular($Codigorandom, $category){
                 if(Auth::check()){
                     try {              
                         $is=ScalesUser::where('category',2)->get();
                         $theinscritos=users_inscription::where('id',$Codigorandom )->get();
-                        foreach($theinscritos as $th){
-                            foreach($is as $i){
-                                if($i->codigoUsuario==$th->Codigorandom){
-                                    return redirect('/Premio_nacional_OES/Evaluadores/consultaInscripcion/'.$Codigorandom.'/evaluaciones')->withErrors('Modulo ya evaluado');
-                                }
-                            }
-                        }             
                         $inscripcion=users_inscription::findOrFail($Codigorandom);
                         $scales=Scale::all();
 
                         $rules=Rule::all();
                         $recommendations=Recommendation::where('category',$category )->get();
+                        foreach($theinscritos as $th){
+                            foreach($is as $i){
+                                if($i->codigoUsuario==$th->Codigorandom && $i->completado==1){
+                                    return redirect('/Premio_nacional_OES/Evaluadores/consultaInscripcion/'.$Codigorandom.'/evaluaciones')->withErrors('Modulo ya evaluado');
+                                }else if($i->codigoUsuario==$th->Codigorandom && $i->completado==0){
+                                    return view('EvaluarCardiovascular',  compact('inscripcion', 'recommendations', 'scales', 'rules', 'is'));
+                                }
+                            }
+                        }             
+                        
 
-                        return view('EvaluarCardiovascular', compact('inscripcion', 'recommendations', 'scales', 'rules'));
+                        return view('EvaluarCardiovascular', compact('inscripcion', 'recommendations', 'scales', 'rules', 'is'));
                 
                     } catch (\Throwable $th) {
                     return redirect('/Premio_nacional_OES/Evaluadores')->withErrors('Error al evaluar');
@@ -111,14 +153,73 @@ class EvaluarController extends Controller
 
             public function saveEvaluarcardio(ScaleCardioRequest $request, $Codigorandom){
                 try {
-                    $datos=$request->validated();
-                    $datos=$request->getData();
-                    $scalesuser=ScalesUser::create($datos);
-                    return redirect('/Premio_nacional_OES/Evaluadores/consultaInscripcion/'.$Codigorandom.'/evaluaciones')->withSuccess('Evaluado Deteccion temprana de enfermedades cardiovasculares');
+                    $is=ScalesUser::where('category',2)->get();
+                        $theinscritos=users_inscription::where('id',$Codigorandom )->get();
+                        foreach($theinscritos as $th){
+                            foreach($is as $i){
+                                if($i->codigoUsuario==$th->Codigorandom && $i->completado==1){
+                                    return redirect('/Premio_nacional_OES/Evaluadores/consultaInscripcion/'.$Codigorandom.'/evaluaciones')->withErrors('Modulo ya evaluado');
+                                }else if($i->codigoUsuario==$th->Codigorandom && $i->completado==0){
+
+                                    $scaleuser=$request->validated();
+                                    $scaleuser=$request->getData();  
+                                    ScalesUser::where('CodigoUsuario','=',$i->codigoUsuario)->where('category',2)->update($scaleuser);
+
+                                    return redirect('/Premio_nacional_OES/Evaluadores/consultaInscripcion/'.$Codigorandom.'/evaluaciones')->withSuccess('Evaluado Detección temprana de enfermedades cardiovasculares');
+                                }
+                            }
+                        }                        
+                                $datos=$request->validated();
+                                $datos=$request->getData();                
+                            $scalesuser=ScalesUser::create($datos);
+                    return redirect('/Premio_nacional_OES/Evaluadores/consultaInscripcion/'.$Codigorandom.'/evaluaciones')->withSuccess('Evaluado Detección temprana de enfermedades cardiovasculares');
                 } catch (\Throwable $th) {
                     return redirect('/Premio_Nacional_OES/Evaluadores/consultaInscripcion')->withErrors('Error al evaluar');
                 }        
             }
+
+
+            public function salvarEvaluarcardio(ScaleSalvarCardioRequest $request, $Codigorandom){
+                try {
+                    $is=ScalesUser::where('category',2)->get();
+                        $theinscritos=users_inscription::where('id',$Codigorandom )->get();
+                        foreach($theinscritos as $th){
+                            foreach($is as $i){
+                                if($i->codigoUsuario==$th->Codigorandom  && $i->completado==1){
+                                    return redirect('/Premio_nacional_OES/Evaluadores/consultaInscripcion/'.$Codigorandom.'/evaluaciones')->withErrors('Modulo ya evaluado');
+                                }else if($i->codigoUsuario==$th->Codigorandom && $i->completado==0){
+
+                                    $scaleuser=$request->validated();
+                                    $scaleuser=$request->getData();  
+                                    ScalesUser::where('CodigoUsuario','=',$i->codigoUsuario)->where('category',2)->update($scaleuser);
+
+                                    return redirect('/Premio_nacional_OES/Evaluadores/consultaInscripcion/'.$Codigorandom.'/evaluaciones')->withSuccess('Salvado Detección temprana de enfermedades cardiovasculares');
+                                }
+                            }
+                        }                        
+                                $datos=$request->validated();
+                                $datos=$request->getData();                
+                            $scalesuser=ScalesUser::create($datos);
+                    return redirect('/Premio_nacional_OES/Evaluadores/consultaInscripcion/'.$Codigorandom.'/evaluaciones')->withSuccess('Salvado Detección temprana de enfermedades cardiovasculares');
+                } catch (\Throwable $th) {
+                    return redirect('/Premio_Nacional_OES/Evaluadores/consultaInscripcion')->withErrors('Error al evaluar');
+                }        
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
             public function evaluarCancer($Codigorandom, $category){
@@ -126,23 +227,26 @@ class EvaluarController extends Controller
                     try {              
                         $is=ScalesUser::where('category',3)->get();
                         $theinscritos=users_inscription::where('id',$Codigorandom )->get();
-                        foreach($theinscritos as $th){
-                            foreach($is as $i){
-                                if($i->codigoUsuario==$th->Codigorandom){
-                                    return redirect('/Premio_nacional_OES/Evaluadores/consultaInscripcion/'.$Codigorandom.'/evaluaciones')->withErrors('Modulo ya evaluado');
-                                }
-                            }
-                        }             
                         $inscripcion=users_inscription::findOrFail($Codigorandom);
                         $scales=Scale::all();
 
                         $rules=Rule::all();
                         $recommendations=Recommendation::where('category',$category )->get();
+                        foreach($theinscritos as $th){
+                            foreach($is as $i){
+                                if($i->codigoUsuario==$th->Codigorandom && $i->completado==1){
+                                    return redirect('/Premio_nacional_OES/Evaluadores/consultaInscripcion/'.$Codigorandom.'/evaluaciones')->withErrors('Modulo ya evaluado');
+                                }else if($i->codigoUsuario==$th->Codigorandom && $i->completado==0){
+                                    return view('EvaluarCancer',  compact('inscripcion', 'recommendations', 'scales', 'rules', 'is'));
+                                }
+                            }
+                        }             
+                        
 
-                        return view('EvaluarCancer', compact('inscripcion', 'recommendations', 'scales', 'rules'));
+                        return view('EvaluarCancer', compact('inscripcion', 'recommendations', 'scales', 'rules','is'));
                 
                     } catch (\Throwable $th) {
-                    return redirect('/Premio_nacional_OES/Evaluadores')->withErrors('Error al evaluar');
+                        return redirect('/Premio_nacional_OES/Evaluadores')->withErrors('Error al evaluar');
                     }
                     
                 }
@@ -151,34 +255,85 @@ class EvaluarController extends Controller
 
             public function saveEvaluarcancer(ScaleCancerRequest $request, $Codigorandom){
                 try {
+                    $is=ScalesUser::where('category',3)->get();
+                        $theinscritos=users_inscription::where('id',$Codigorandom )->get();
+                        foreach($theinscritos as $th){
+                            foreach($is as $i){
+                                if($i->codigoUsuario==$th->Codigorandom && $i->completado==1){
+                                    return redirect('/Premio_nacional_OES/Evaluadores/consultaInscripcion/'.$Codigorandom.'/evaluaciones')->withErrors('Modulo ya evaluado');
+                                }else if($i->codigoUsuario==$th->Codigorandom && $i->completado==0){
+
+                                    $scaleuser=$request->validated();
+                                    $scaleuser=$request->getData();  
+                                    ScalesUser::where('CodigoUsuario','=',$i->codigoUsuario)->where('category',3)->update($scaleuser);
+
+                                    return redirect('/Premio_nacional_OES/Evaluadores/consultaInscripcion/'.$Codigorandom.'/evaluaciones')->withSuccess('Evaluado Detección temprana de cáncer');
+                                }
+                            }
+                        }
                     $datos=$request->validated();
                     $datos=$request->getData();
                     $scalesuser=ScalesUser::create($datos);
-                    return redirect('/Premio_nacional_OES/Evaluadores/consultaInscripcion/'.$Codigorandom.'/evaluaciones')->withSuccess('Evaluado Deteccion temprana de cancer');
+                    return redirect('/Premio_nacional_OES/Evaluadores/consultaInscripcion/'.$Codigorandom.'/evaluaciones')->withSuccess('Evaluado Detección temprana de cáncer');
                 } catch (\Throwable $th) {
                     return redirect('/Premio_Nacional_OES/Evaluadores/consultaInscripcion')->withErrors('Error al evaluar');
                 }        
             }
+
+
+            public function salvarEvaluarcancer(ScaleSalvarCancerRequest $request, $Codigorandom){
+                try {
+                    $is=ScalesUser::where('category',3)->get();
+                        $theinscritos=users_inscription::where('id',$Codigorandom )->get();
+                        foreach($theinscritos as $th){
+                            foreach($is as $i){
+                                if($i->codigoUsuario==$th->Codigorandom  && $i->completado==1){
+                                    return redirect('/Premio_nacional_OES/Evaluadores/consultaInscripcion/'.$Codigorandom.'/evaluaciones')->withErrors('Modulo ya evaluado');
+                                }else if($i->codigoUsuario==$th->Codigorandom && $i->completado==0){
+
+                                    $scaleuser=$request->validated();
+                                    $scaleuser=$request->getData();  
+                                    ScalesUser::where('CodigoUsuario','=',$i->codigoUsuario)->where('category',3)->update($scaleuser);
+
+                                    return redirect('/Premio_nacional_OES/Evaluadores/consultaInscripcion/'.$Codigorandom.'/evaluaciones')->withSuccess('Salvado Detección temprana de cáncer');
+                                }
+                            }
+                        }                        
+                                $datos=$request->validated();
+                                $datos=$request->getData();                
+                            $scalesuser=ScalesUser::create($datos);
+                    return redirect('/Premio_nacional_OES/Evaluadores/consultaInscripcion/'.$Codigorandom.'/evaluaciones')->withSuccess('Salvado Detección temprana de cáncer');
+                } catch (\Throwable $th) {
+                    return redirect('/Premio_Nacional_OES/Evaluadores/consultaInscripcion')->withErrors('Error al evaluar');
+                }        
+            }
+
+
+
+
 
             public function evaluarEnfoque($Codigorandom, $category){
                 if(Auth::check()){
                     try {              
                         $is=ScalesUser::where('category',4)->get();
                         $theinscritos=users_inscription::where('id',$Codigorandom )->get();
-                        foreach($theinscritos as $th){
-                            foreach($is as $i){
-                                if($i->codigoUsuario==$th->Codigorandom){
-                                    return redirect('/Premio_nacional_OES/Evaluadores/consultaInscripcion/'.$Codigorandom.'/evaluaciones')->withErrors('Modulo ya evaluado');
-                                }
-                            }
-                        }             
-                        $inscripcion=users_inscription::findOrFail($Codigorandom);
+                         $inscripcion=users_inscription::findOrFail($Codigorandom);
                         $scales=Scale::all();
 
                         $rules=Rule::all();
                         $recommendations=Recommendation::where('category',$category )->get();
+                        foreach($theinscritos as $th){
+                            foreach($is as $i){
+                                if($i->codigoUsuario==$th->Codigorandom && $i->completado==1){
+                                    return redirect('/Premio_nacional_OES/Evaluadores/consultaInscripcion/'.$Codigorandom.'/evaluaciones')->withErrors('Modulo ya evaluado');
+                                }else if($i->codigoUsuario==$th->Codigorandom && $i->completado==0){
+                                    return view('EvaluarEnfoque',  compact('inscripcion', 'recommendations', 'scales', 'rules', 'is'));
+                                }
+                            }
+                        }             
+                       
 
-                        return view('EvaluarEnfoque', compact('inscripcion', 'recommendations', 'scales', 'rules'));
+                        return view('EvaluarEnfoque', compact('inscripcion', 'recommendations', 'scales', 'rules','is'));
                 
                     } catch (\Throwable $th) {
                     return redirect('/Premio_nacional_OES/Evaluadores')->withErrors('Error al evaluar');
@@ -190,6 +345,22 @@ class EvaluarController extends Controller
 
             public function saveEvaluarenfoque(ScaleEnfoqueRequest $request, $Codigorandom){
                 try {
+                    $is=ScalesUser::where('category',4)->get();
+                        $theinscritos=users_inscription::where('id',$Codigorandom )->get();
+                        foreach($theinscritos as $th){
+                            foreach($is as $i){
+                                if($i->codigoUsuario==$th->Codigorandom && $i->completado==1){
+                                    return redirect('/Premio_nacional_OES/Evaluadores/consultaInscripcion/'.$Codigorandom.'/evaluaciones')->withErrors('Modulo ya evaluado');
+                                }else if($i->codigoUsuario==$th->Codigorandom && $i->completado==0){
+
+                                    $scaleuser=$request->validated();
+                                    $scaleuser=$request->getData();  
+                                    ScalesUser::where('CodigoUsuario','=',$i->codigoUsuario)->where('category',4)->update($scaleuser);
+
+                                    return redirect('/Premio_nacional_OES/Evaluadores/consultaInscripcion/'.$Codigorandom.'/evaluaciones')->withSuccess('Evaluado Enfoque diferencial de las atenciones del prestador');
+                                }
+                            }
+                        }
                     $datos=$request->validated();
                     $datos=$request->getData();
                     $scalesuser=ScalesUser::create($datos);
@@ -198,6 +369,49 @@ class EvaluarController extends Controller
                     return redirect('/Premio_Nacional_OES/Evaluadores/consultaInscripcion')->withErrors('Error al evaluar');
                 }        
             }
+
+
+            public function salvarEvaluarenfoque(ScaleSalvarEnfoqueRequest $request, $Codigorandom){
+                try {
+                    $is=ScalesUser::where('category',4)->get();
+                        $theinscritos=users_inscription::where('id',$Codigorandom )->get();
+                        foreach($theinscritos as $th){
+                            foreach($is as $i){
+                                if($i->codigoUsuario==$th->Codigorandom  && $i->completado==1){
+                                    return redirect('/Premio_nacional_OES/Evaluadores/consultaInscripcion/'.$Codigorandom.'/evaluaciones')->withErrors('Modulo ya evaluado');
+                                }else if($i->codigoUsuario==$th->Codigorandom && $i->completado==0){
+
+                                    $scaleuser=$request->validated();
+                                    $scaleuser=$request->getData();  
+                                    ScalesUser::where('CodigoUsuario','=',$i->codigoUsuario)->where('category',4)->update($scaleuser);
+
+                                    return redirect('/Premio_nacional_OES/Evaluadores/consultaInscripcion/'.$Codigorandom.'/evaluaciones')->withSuccess('Salvado Enfoque diferencial de las atenciones del prestador');
+                                }
+                            }
+                        }                        
+                                $datos=$request->validated();
+                                $datos=$request->getData();                
+                            $scalesuser=ScalesUser::create($datos);
+                    return redirect('/Premio_nacional_OES/Evaluadores/consultaInscripcion/'.$Codigorandom.'/evaluaciones')->withSuccess('Salvado Enfoque diferencial de las atenciones del prestador');
+                } catch (\Throwable $th) {
+                    return redirect('/Premio_Nacional_OES/Evaluadores/consultaInscripcion')->withErrors('Error al evaluar');
+                }        
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     public function resultado(ResultRequest $request, $Codigorandom){   
@@ -211,17 +425,17 @@ class EvaluarController extends Controller
                                 return redirect()->back()->withErrors('Resultado ya generado');
                             }                 
                     }
-                $evaluadosPerinatal=ScalesUser::where('codigoUsuario', $Codigorandom)->where('category',1)->get();
-                $evaluadosCardio=ScalesUser::where('codigoUsuario', $Codigorandom)->where('category',2)->get();
-                $evaluadosCancer=ScalesUser::where('codigoUsuario', $Codigorandom)->where('category',3)->get();
-                $evaluadosEnfoque=ScalesUser::where('codigoUsuario', $Codigorandom)->where('category',4)->get();
+                $evaluadosPerinatal=ScalesUser::where('codigoUsuario', $Codigorandom)->where('category',1)->where('completado',1)->get();
+                $evaluadosCardio=ScalesUser::where('codigoUsuario', $Codigorandom)->where('category',2)->where('completado',1)->get();
+                $evaluadosCancer=ScalesUser::where('codigoUsuario', $Codigorandom)->where('category',3)->where('completado',1)->get();
+                $evaluadosEnfoque=ScalesUser::where('codigoUsuario', $Codigorandom)->where('category',4)->where('completado',1)->get();
                 $resultado=new Result; 
                 foreach($evaluadosPerinatal as $evalp){       
                               
-                    $porcentajeestructuraperinatal=(($evalp->estructura)*100)/10;
-                    $porcentajeprocesoperinatal=(($evalp->proceso)*100)/30;
-                    $porcentajeresultadoperinatal=(($evalp->resultado)*100)/25;
-                    $porcentajeperinatal=(($porcentajeestructuraperinatal+$porcentajeprocesoperinatal+$porcentajeresultadoperinatal)/(3));
+                    $porcentajeestructuraperinatal=round(((($evalp->estructura+$evalp->estructura2)*100)/10)*0.10,2);
+                    $porcentajeprocesoperinatal=round(((($evalp->proceso+$evalp->proceso2+$evalp->proceso3+$evalp->proceso4+$evalp->proceso5+$evalp->proceso6)*100)/30)*0.10,2);
+                    $porcentajeresultadoperinatal=round(((($evalp->resultado+$evalp->resultado2+$evalp->resultado3+$evalp->resultado4+$evalp->resultado5)*100)/25)*0.05,2);
+                    $porcentajeperinatal=$porcentajeestructuraperinatal+$porcentajeprocesoperinatal+$porcentajeresultadoperinatal;
                     
 
                     $resultado->porcentaje_estructura_perinatal	=$porcentajeestructuraperinatal;
@@ -233,10 +447,10 @@ class EvaluarController extends Controller
                 }
                 foreach($evaluadosCardio as $evalcar){       
                               
-                    $porcentajeestructuracardio=(($evalcar->estructura)*100)/10;
-                    $porcentajeprocesocardio=(($evalcar->proceso)*100)/45;
-                    $porcentajeresultadocardio=(($evalcar->resultado)*100)/20;
-                    $porcentajecardio=(($porcentajeestructuracardio+$porcentajeprocesocardio+$porcentajeresultadocardio)/(3));
+                    $porcentajeestructuracardio=round(((($evalcar->estructura)*100)/10)*0.10,2);
+                    $porcentajeprocesocardio=round(((($evalcar->proceso)*100)/45)*0.10,2);
+                    $porcentajeresultadocardio=round(((($evalcar->resultado)*100)/20)*0.05,2);
+                    $porcentajecardio=$porcentajeestructuracardio+$porcentajeprocesocardio+$porcentajeresultadocardio;
                     
 
                     $resultado->porcentaje_estructura_cardio=$porcentajeestructuracardio;
@@ -247,10 +461,10 @@ class EvaluarController extends Controller
 
                 foreach($evaluadosCancer as $evalcan){       
                               
-                    $porcentajeestructuracancer=(($evalcan->estructura)*100)/10;
-                    $porcentajeprocesocancer=(($evalcan->proceso)*100)/20;
-                    $porcentajeresultadocancer=(($evalcan->resultado)*100)/20;
-                    $porcentajecancer=(($porcentajeestructuracancer+$porcentajeprocesocancer+$porcentajeresultadocancer)/(3));
+                    $porcentajeestructuracancer=round(((($evalcan->estructura)*100)/10)*0.10,2);
+                    $porcentajeprocesocancer=round(((($evalcan->proceso)*100)/20)*0.10,2);
+                    $porcentajeresultadocancer=round(((($evalcan->resultado)*100)/20)*0.05,2);
+                    $porcentajecancer=$porcentajeestructuracancer+$porcentajeprocesocancer+$porcentajeresultadocancer;
                     
 
                     $resultado->porcentaje_estructura_cancer=$porcentajeestructuracancer;
@@ -261,10 +475,10 @@ class EvaluarController extends Controller
 
                 foreach($evaluadosEnfoque as $evalen){       
                               
-                    $porcentajeestructuraenfoque=(($evalen->estructura)*100)/15;
-                    $porcentajeprocesoenfoque=(($evalen->proceso)*100)/10;
-                    $porcentajeresultadoenfoque=(($evalen->resultado)*100)/5;
-                    $porcentajeenfoque=(($porcentajeestructuraenfoque+$porcentajeprocesoenfoque+$porcentajeresultadoenfoque)/(3));
+                    $porcentajeestructuraenfoque=round(((($evalen->estructura)*100)/15)*0.10,2);
+                    $porcentajeprocesoenfoque=round(((($evalen->proceso)*100)/10)*0.10,2);
+                    $porcentajeresultadoenfoque=round(((($evalen->resultado)*100)/5)*0.05,2);
+                    $porcentajeenfoque=$porcentajeestructuraenfoque+$porcentajeprocesoenfoque+$porcentajeresultadoenfoque;
                     
 
                     $resultado->porcentaje_estructura_enfoque=$porcentajeestructuraenfoque;
@@ -272,10 +486,10 @@ class EvaluarController extends Controller
                     $resultado->porcentaje_resultado_enfoque=$porcentajeresultadoenfoque;
                     $resultado->porcentaje_enfoque=$porcentajeenfoque;                
                 }
-                $resultado->PorcenajeEstructura=($porcentajeestructuraperinatal+$porcentajeestructuracardio+$porcentajeestructuracancer+$porcentajeestructuraenfoque)/4;
-                $resultado->PorcenajeProceso=($porcentajeprocesoperinatal+$porcentajeprocesocardio+$porcentajeprocesocancer+$porcentajeprocesoenfoque)/4;
-                $resultado->PorcenajeResultado=($porcentajeresultadoperinatal+$porcentajeresultadocardio+$porcentajeresultadocancer+$porcentajeresultadoenfoque)/4;
-                $resultado->PorcenajeTotal=($porcentajeperinatal*0.25)+($porcentajecardio*0.25)+($porcentajecancer*0.25)+($porcentajeenfoque*0.25);
+                $resultado->PorcentajeEstructura=$porcentajeestructuraperinatal+$porcentajeestructuracardio+$porcentajeestructuracancer+$porcentajeestructuraenfoque;
+                $resultado->PorcentajeProceso=$porcentajeprocesoperinatal+$porcentajeprocesocardio+$porcentajeprocesocancer+$porcentajeprocesoenfoque;
+                $resultado->PorcentajeResultado=$porcentajeresultadoperinatal+$porcentajeresultadocardio+$porcentajeresultadocancer+$porcentajeresultadoenfoque;
+                $resultado->PorcentajeTotal=$porcentajeperinatal+$porcentajecardio+$porcentajecancer+$porcentajeenfoque;
 
             $resultado->User=$Codigorandom;
             $resultado->save();  
@@ -287,7 +501,7 @@ class EvaluarController extends Controller
             }else{
                 return redirect('/Premio_Nacional_OES/Evaluadores/consultaInscripcion');
             }*/
-            return redirect()->back()->withErrors('Error al generar resultado');
+            return redirect()->back()->withErrors('Error al generar resultado, realice todas las evaluaciones');
 
          }
         
@@ -295,10 +509,11 @@ class EvaluarController extends Controller
 
         public function final($id){
             try {
+                $inscripcion=users_inscription::where('Codigorandom', $id);
                 $resultadofinal=Result::where('User', $id)->get();
-                return view('resultado', compact('resultadofinal'));
+                return view('resultado', compact('resultadofinal', 'inscripcion'));
             } catch (\Throwable $th) {
-                return view('home');
+                return redirect()->back()->withErrors('Error');
             }         
         }
 
@@ -306,24 +521,43 @@ class EvaluarController extends Controller
 
         try {
             if(auth()->user()->Tipo_Usuario==1){
-                $evaluados=Result::all();
+                $evaluados=DB::table('results')
+                ->join('users_inscriptions','results.User','=','users_inscriptions.Codigorandom')
+                ->select('results.porcentaje_estructura_perinatal', 
+                'results.porcentaje_proceso_perinatal', 'results.porcentaje_resultado_perinatal',
+                'results.porcentaje_estructura_cardio', 'results.porcentaje_proceso_cardio', 'results.porcentaje_resultado_cardio', 
+                'results.porcentaje_estructura_cancer', 'results.porcentaje_proceso_cancer', 'results.porcentaje_resultado_cancer', 'results.porcentaje_estructura_enfoque',
+                'results.porcentaje_proceso_enfoque', 'results.porcentaje_resultado_enfoque', 'results.PorcentajeEstructura', 'results.PorcentajeProceso', 'results.PorcentajeResultado', 
+                'results.porcentaje_perinatal', 'results.porcentaje_cardio', 'results.porcentaje_cancer', 'results.porcentaje_enfoque', 'results.PorcentajeTotal', 'results.User')
+                ->orderbyDesc('results.PorcentajeTotal')->get();
             }else{
-                $evaluados=DB::select('SELECT `porcentaje_estructura_perinatal`, 
-            `porcentaje_proceso_perinatal`, `porcentaje_resultado_perinatal`,
-             `porcentaje_estructura_cardio`, `porcentaje_proceso_cardio`, `porcentaje_resultado_cardio`, 
-             `porcentaje_estructura_cancer`, `porcentaje_proceso_cancer`, `porcentaje_resultado_cancer`, `porcentaje_estructura_enfoque`,
-              `porcentaje_proceso_enfoque`, `porcentaje_resultado_enfoque`, `PorcenajeEstructura`, `PorcenajeProceso`, `PorcenajeResultado`, 
-              `porcentaje_perinatal`, `porcentaje_cardio`, `porcentaje_cancer`, `porcentaje_enfoque`, `PorcenajeTotal`, `User`
-            FROM `results` r
-            inner join users_inscriptions ui on ui.Codigorandom=r.User
-            where ui.Evaluador=:id
-            order by r.PorcenajeTotal desc',['id' => auth()->user()->id]);
+                /*$evaluados=DB::select('SELECT `porcentaje_estructura_perinatal`, 
+                `porcentaje_proceso_perinatal`, `porcentaje_resultado_perinatal`,
+                `porcentaje_estructura_cardio`, `porcentaje_proceso_cardio`, `porcentaje_resultado_cardio`, 
+                `porcentaje_estructura_cancer`, `porcentaje_proceso_cancer`, `porcentaje_resultado_cancer`, `porcentaje_estructura_enfoque`,
+                `porcentaje_proceso_enfoque`, `porcentaje_resultado_enfoque`, `PorcentajeEstructura`, `PorcentajeProceso`, `PorcentajeResultado`, 
+                `porcentaje_perinatal`, `porcentaje_cardio`, `porcentaje_cancer`, `porcentaje_enfoque`, `PorcentajeTotal`, `User`
+                FROM `results` r
+                inner join users_inscriptions ui on ui.Codigorandom=r.User
+                where ui.Evaluador=:id
+                order by r.PorcentajeTotal desc',['id' => auth()->user()->id]);*/
+
+                $evaluados=DB::table('results')
+                ->join('users_inscriptions','results.User','=','users_inscriptions.Codigorandom')
+                ->select('results.porcentaje_estructura_perinatal', 
+                'results.porcentaje_proceso_perinatal', 'results.porcentaje_resultado_perinatal',
+                'results.porcentaje_estructura_cardio', 'results.porcentaje_proceso_cardio', 'results.porcentaje_resultado_cardio', 
+                'results.porcentaje_estructura_cancer', 'results.porcentaje_proceso_cancer', 'results.porcentaje_resultado_cancer', 'results.porcentaje_estructura_enfoque',
+                'results.porcentaje_proceso_enfoque', 'results.porcentaje_resultado_enfoque', 'results.PorcentajeEstructura', 'results.PorcentajeProceso', 'results.PorcentajeResultado', 
+                'results.porcentaje_perinatal', 'results.porcentaje_cardio', 'results.porcentaje_cancer', 'results.porcentaje_enfoque', 'results.PorcentajeTotal', 'results.User')
+                ->where('users_inscriptions.Evaluador', auth()->user()->id)
+                ->orderbyDesc('results.PorcentajeTotal')->get();
             }
             
 
             return view('evaluados', compact('evaluados'));
         } catch (\Throwable $th) {
-            return view('home');
+            return redirect()->back()->withErrors('Error');
         }
         
     }

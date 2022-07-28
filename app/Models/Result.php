@@ -23,14 +23,14 @@ class Result extends Model
         'porcentaje_estructura_enfoque',
         'porcentaje_proceso_enfoque',
         'porcentaje_resultado_enfoque',
-        'PorcenajeEstructura',
-        'PorcenajeProceso',
-        'PorcenajeResultado',
+        'PorcentajeEstructura',
+        'PorcentajeProceso',
+        'PorcentajeResultado',
         'porcentaje_perinatal',
         'porcentaje_cardio',
         'porcentaje_cancer',
         'porcentaje_enfoque',
-        'PorcenajeTotal'
+        'PorcentajeTotal'
         ,'User',
 
     ];
