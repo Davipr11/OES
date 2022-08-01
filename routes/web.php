@@ -16,6 +16,7 @@ use App\Http\Controllers\ExportarController;
 use App\Http\Controllers\PreguntaController;
 use App\Http\Controllers\RespuestaController;
 use App\Http\Controllers\EvaluarController;
+use App\Http\Controllers\AutorizacionController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -47,8 +48,8 @@ Route::get('/logout',[LogoutController::class, 'logout']);
 Route::get('/cambiocontrasena',[CambioContraseñaController::class, 'index'])->name('cambio');
 Route::post('/cambiocontrasena',[CambioContraseñaController::class, 'cambiar'])->name('cambiar');
 
-Route::get('/evaluador',[OperadorController::class, 'index']);
-Route::get('/evaluador2',[Operador2Controller::class, 'index']);
+Route::get('/Premio_nacional_OES/evaluador',[OperadorController::class, 'index']);
+Route::get('/Premio_nacional_OES/evaluador2',[Operador2Controller::class, 'index']);
 
 Route::resource('Premio_Nacional_OES/Evaluadores/consulta', ConsultarUsuariosController::class);
 
@@ -60,6 +61,9 @@ Route::post('Premio_Nacional_OES/inscripcion/{id}/update',[UsersInscriptionContr
 
 Route::get('/Premio_Nacional_OES/Evaluadores/consultaInscripcion',[InscritosController::class, 'index']);
 Route::get('/Premio_Nacional_OES/Evaluadores/consultaInscripcion',[InscritosController::class, 'Inscritos']);
+
+Route::post('/Premio_Nacional_OES/Evaluadores/consultaInscripcion/filtro',[InscritosController::class, 'InscritosFiltro']);
+
 
 Route::get('/index',[DepartamentoController::class, 'index']);
 Route::get('/exportar',[ExportarController::class, 'exportar']);
@@ -75,6 +79,11 @@ Route::post('/Premio_nacional_OES/Evaluadores/respuesta/{id}/update',[RespuestaC
 
 Route::get('/Premio_nacional_OES/Evaluadores/consultaInscripcion/{id}/evaluaciones',[EvaluarController::class, 'index']);
 
+Route::get('/Premio_nacional_OES/Evaluadores/consultaInscripcion/{id}/autorizacion',[AutorizacionController::class, 'index']);
+
+Route::get('/Premio_nacional_OES/Evaluadores/consultaInscripcion/{id}/autorizacionE',[AutorizacionController::class, 'autorizar']);
+
+Route::post('/Premio_nacional_OES/Evaluadores/consultaInscripcion/{id}/autorizacionEdit',[AutorizacionController::class, 'autorizarEdit']);
 
 Route::get('/Premio_nacional_OES/Evaluadores/consultaInscripcion/{id}/{reco}/evaluarPerinatal',[EvaluarController::class, 'evaluarPerinatal']);
 Route::get('/Premio_nacional_OES/Evaluadores/consultaInscripcion/{id}/{reco}/evaluarCardiovascular',[EvaluarController::class, 'evaluarCardiovascular']);
@@ -86,6 +95,11 @@ Route::post('/Premio_nacional_OES/Evaluadores/consultaInscripcion/{Codigorandom}
 Route::post('/Premio_nacional_OES/Evaluadores/consultaInscripcion/{Codigorandom}/evaluacioncardio',[EvaluarController::class, 'saveEvaluarcardio']);
 Route::post('/Premio_nacional_OES/Evaluadores/consultaInscripcion/{Codigorandom}/evaluacioncancer',[EvaluarController::class, 'saveEvaluarcancer']);
 Route::post('/Premio_nacional_OES/Evaluadores/consultaInscripcion/{Codigorandom}/evaluacionenfoque',[EvaluarController::class, 'saveEvaluarenfoque']);
+
+Route::post('/Premio_nacional_OES/Evaluadores/consultaInscripcion/{Codigorandom}/salvarevaluacionperinatal',[EvaluarController::class, 'salvarEvaluarPerinatal']);
+Route::post('/Premio_nacional_OES/Evaluadores/consultaInscripcion/{Codigorandom}/salvarevaluacioncardio',[EvaluarController::class, 'salvarEvaluarcardio']);
+Route::post('/Premio_nacional_OES/Evaluadores/consultaInscripcion/{Codigorandom}/salvarevaluacioncancer',[EvaluarController::class, 'salvarEvaluarcancer']);
+Route::post('/Premio_nacional_OES/Evaluadores/consultaInscripcion/{Codigorandom}/salvarevaluacionenfoque',[EvaluarController::class, 'salvarEvaluarenfoque']);
 
 Route::get('/Premio_nacional_OES/Evaluadores/consultaInscripcion/{Codigorandom}/resultado',[EvaluarController::class, 'resultado']);
 Route::get('/Premio_nacional_OES/Evaluadores/consultaInscripcion/{id}/resultadofinal',[EvaluarController::class, 'final']);

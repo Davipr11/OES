@@ -176,13 +176,27 @@ tr.table-inscritos td{
     border-radius: 3%;
 }
 
-.evaluados {
-   background-color: #5a90ac;
+.evaluados th{
+    background-color:#006799;
    text-align: center;
+   color:white !important;
 }
-.evaluados-t td{
-    text-align: left;
+tr.evaluados-td td{
+    text-align: center;
+ }
+tr.evaluados-t td{
+    text-align: center;
     font-weight: 1000;
+ }
+ tr.evaluados-td th{
+    background-color:#006799;
+    font-weight: 1000;
+    color: white !important;
+ }
+ tr.evaluados-t th{
+    background-color:#006799;
+    font-weight: 1000;
+    color: white !important;
  }
 
 .text-line{
@@ -197,19 +211,24 @@ tr.table-inscritos td{
         border-spacing: 0;
         width: 100%;
         border: 1px solid #ddd;
+        border-spacing: 100000px;
 }
 .tabla-respo{
     border-collapse: collapse;
-    table-layout: fixed;
+    
     border-spacing: 0;
     width: 100%;
     border: 1px solid #ddd;
     border-spacing: 100000px ;
 }
-.tabla-respo td{
+.tabla-resp td{
     text-align: right;
 }
 
 .table-eva {
     text-align: center;
+}
+
+.table-filtros{
+    margin-right: 25%;
 }
