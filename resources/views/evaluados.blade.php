@@ -6,9 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="{{asset('css/estilos.css')}}">
     <link rel="icon" type="image/x-icon" href="{{asset('premionacional.png')}}">
-    <title>Evaluados</title>
+    <title>Premio Calidad</title>
     <header>   
     <nav class="navbar navbar-expand-lg navbar-light bg-light"> <a class="navbar-brand" href="https://premiocalidadaps.com.co/"><img src="{{asset('logominisalud.png')}}" alt=""></a>       
            
@@ -75,17 +76,25 @@
     </header>
 </head>
 <body>
+    <br>
 <center><h1 style="color: #009FE3">Evaluados</h1></center>
+            @if($errors->any())
+                    <div class="alert alert-danger" role="alert">
+                        {!! implode('', $errors->all('<h6 class="error">:message</h6>')) !!}
+                    </div>
+            @endif
+          <br>  
         @foreach ($evaluados as $rf)
         <div style="overflow-x:auto;">
-          <table class="table table-striped container-table tabla-respo"> 
+          <table class="table table-striped container-table tabla-resp"> 
               <tr class="evaluados">
-                  <th>Evaluación inscripción</th>
-                  <th>{{$rf->User}}</th>
+                  <th>Codigo inscripción: {{$rf->User}}</th> 
+                  <th>IPS: {{$rf->ips}}</th>                                             
+                  <th>Evaluador: {{$rf->Usuario}}</th>
+                  <th>Fecha evaluado: </th>   
+                  <th>{{$rf->updated_at}}</th>
                   <th></th>
-                  <th></th>
-                  <th></th>
-                  <th></th>
+                  
               </tr>            
               <tr class="evaluados">
                   <th>Resultados claves</th>
@@ -97,15 +106,16 @@
               </tr>
                         
                
-                <tr>
+                <tr class="evaluados-td">                
                     <th>Estrutura</th>
                     <td>{{$rf->porcentaje_estructura_perinatal}}%</td>
                     <td>{{$rf->porcentaje_estructura_cardio}}%</td>
                     <td>{{$rf->porcentaje_estructura_cancer}}%</td>
                     <td>{{$rf->porcentaje_estructura_enfoque}}%</td>
                     <td>{{$rf->PorcentajeEstructura}}%</td>
+                  
                 </tr>
-                <tr>
+                <tr class="evaluados-td">
                     <th>Proceso</th>
                     <td>{{$rf->porcentaje_proceso_perinatal}}%</td>
                     <td>{{$rf->porcentaje_proceso_cardio}}%</td>
@@ -113,7 +123,7 @@
                     <td>{{$rf->porcentaje_proceso_enfoque}}%</td>
                     <td>{{$rf->PorcentajeProceso}}%</td>
                 </tr> 
-                <tr>
+                <tr class="evaluados-td">
                     <th>Resultado</th>
                     <td>{{$rf->porcentaje_resultado_perinatal}}%</td>
                     <td>{{$rf->porcentaje_resultado_cardio}}%</td>
@@ -133,9 +143,54 @@
                 </tr>             
                
           </table>
-          <br><br><br><br>
+          <br><br><br>
+          
         </div>
-     @endforeach
+        <div class="container">
+            <canvas id="myChart{{$rf->User}}"></canvas>
+        </div>
+        <script>
+            const labels{{$rf->User}} = [
+                'Materno perinatal',
+                'Cancer',
+                'Cardiovascular',
+                'Enfoque',
+            ];
 
+            const data{{$rf->User}}= {
+                labels: labels{{$rf->User}},
+                datasets: [{
+                label: 'Resultado',
+                borderColor: 'rgb(255, 99, 132)',
+                data: [{{$rf->porcentaje_perinatal}}, {{$rf->porcentaje_cardio}}, {{$rf->porcentaje_cancer}}, {{$rf->porcentaje_enfoque}}],
+                }]
+            };
+
+            const config{{$rf->User}} = {
+                type: 'radar',
+                data: data{{$rf->User}},
+                options: { 
+                    scales: {
+                    r: {
+                        angleLines: {
+                            display: false
+                        },
+                        suggestedMin: 0,
+                        suggestedMax: 25
+                    }
+                }
+                },
+            };
+            
+            const myChart{{$rf->User}}= new Chart(
+                document.getElementById('myChart{{$rf->User}}'),
+                config{{$rf->User}}
+            );
+
+        </script>
+     @endforeach
+     
 </body>
+
+
 </html>

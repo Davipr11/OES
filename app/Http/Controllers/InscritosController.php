@@ -12,14 +12,47 @@ use Illuminate\Support\Facades\DB;
 class InscritosController extends Controller
 {
     public function index(){
-        if(Auth::check()){
+        try {
+            if(Auth::check()){
             return view('inscritos');
         }
         return view('Login');
+        } catch (\Throwable $th) {
+            return redirect()->back()->withErrors('error');
+        }
+       
+    }
+    
+    public function InscritosFiltro(Request $request){
+        try {
+        if(Auth::check()){
+            
+                $filtroips=$request->get('nombreips');
+                $filtronit=$request->get('numeronit');
+                $filtrocodigo=$request->get('Cinscripcion');
+                $datos=DB::table('users_inscriptions')
+                    ->leftjoin('users', 'users_inscriptions.Evaluador','=','users.id')
+                    ->join('municipios', 'users_inscriptions.municipio','=','municipios.id')
+                    ->join('departamentos', 'municipios.id_departamento','=','departamentos.id')
+                    ->select('users_inscriptions.ips', 'users_inscriptions.nit','departamentos.departamento', 
+                    'users_inscriptions.director_medico', 'users_inscriptions.id','users_inscriptions.Codigorandom',
+                    'users_inscriptions.telefono', 'users_inscriptions.email', 'users_inscriptions.codigoRandom', 'users.Usuario')
+                    ->where('users_inscriptions.codigoRandom','=', $filtrocodigo)
+                    ->orWhere('users_inscriptions.nit','=', $filtronit)
+                    ->orWhere('users_inscriptions.ips',$filtroips)
+                    ->orderby('users_inscriptions.ips')->get();
+                    $evaluadosT=ScalesUser::all();
+                    $usuarios=User::all();
+                    return view('inscritos',compact('datos', 'evaluadosT', 'usuarios'));
+              }      
+            } catch (\Throwable $th) {
+                return redirect()->back()->withErrors('error');
+            }     
     }
 
-    public function Inscritos(){
-        if(Auth::check()){
+    public function Inscritos(Request $request){
+        try {
+            if(Auth::check()){
             if(auth()->user()->Tipo_Usuario==1){
             $datos=DB::select('SELECT ui.Codigorandom, ui.id, ui.ips, ui.nit, ui.codigo_habilitacion_prestador,
              ui.fecha_inscripcion_reps, ui.fecha_vencimiento, ui.naturaleza_juridica, ui.nivel_complejidad,d.departamento, 
@@ -31,7 +64,9 @@ class InscritosController extends Controller
             left join users u on u.id=ui.Evaluador
             inner join municipios m on m.id=ui.municipio
             inner join departamentos d on d.id=m.id_departamento
-            ORDER BY ui.ips asc');
+            ORDER BY ui.codigoRandom asc');
+            
+
             $evaluadosT=ScalesUser::all();
             $usuarios=User::all();
             return view('inscritos',compact('datos', 'evaluadosT', 'usuarios'));
@@ -68,5 +103,9 @@ class InscritosController extends Controller
             
         }
         return redirect('/Premio_nacional_OES/Evaluadores');
+        } catch (\Throwable $th) {
+            return redirect()->back()->withErrors('error');
+        }
+        
     }
 }

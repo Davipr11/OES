@@ -12,9 +12,9 @@ class HomeController extends Controller
             if(auth()->user()->Tipo_Usuario==1){
                 return view('home');
             }else if(auth()->user()->Tipo_Usuario==2){
-                return redirect('/evaluador');
+                return redirect('/Premio_nacional_OES/evaluador');
             }else{
-                return redirect('/evaluador2');
+                return redirect('/Premio_nacional_OES/evaluador2');
             }
         }
         return view('Login');

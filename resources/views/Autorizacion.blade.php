@@ -9,8 +9,7 @@
     <link rel="stylesheet" href="{{asset('css/estilos.css')}}">
     <link rel="icon" type="image/x-icon" href="{{asset('premionacional.png')}}">
     <title>Premio Calidad</title>
-</head>
-<header>   
+    <header>   
     <nav class="navbar navbar-expand-lg navbar-light bg-light"> <a class="navbar-brand" href="https://premiocalidadaps.com.co/"><img src="{{asset('logominisalud.png')}}" alt=""></a>       
            
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent2"  aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -24,42 +23,36 @@
                 <a href="https://app.premiocalidadaps.com.co/Premio_nacional_OES/Evaluadores">home</a>
             </button>
                 </li>
-                @if (auth()->user()->Tipo_Usuario==1)
                 <li class="nav-item mx-2 py-2">
                 <button type="button" class="btn-an" style="background-color:#006799; color:white ">
                 <a href="https://app.premiocalidadaps.com.co/Premio_nacional_OES/Evaluadores/register">Crear Usuario</a>
             </button>
                 </li>
-                @endif
                 <li class="nav-item mx-2 py-2">
                 <button type="button" class="btn-an" style="background-color:#006799; color:white ">
                 <a href="https://app.premiocalidadaps.com.co/cambiocontrasena">Cambiar contraseña</a>
                 </button>
                 </li>
-                @if (auth()->user()->Tipo_Usuario==1)
                 <li class="nav-item mx-2 py-2 ">
                 <button type="button" class="btn-an" style="background-color:#006799; color:white ">
                 <a href="https://app.premiocalidadaps.com.co/Premio_Nacional_OES/Evaluadores/consulta/show">Usuarios</a>
             </button>
                 </li>
-                @endif
                 <li class="nav-item mx-2 py-2">
                 <button type="button" class="btn-an" style="background-color:#006799; color:white ">
                 <a href="https://app.premiocalidadaps.com.co/Premio_Nacional_OES/Evaluadores/consultaInscripcion">Inscripciones</a>
             </button>
                 </li>
-                @if (auth()->user()->Tipo_Usuario==1)
                 <li class="nav-item mx-2 py-2">
                 <button type="button" class="btn-an" style="background-color:#006799; color:white ">
                 <a href="https://app.premiocalidadaps.com.co/Premio_nacional_OES/Evaluadores/respuesta">Preguntas</a>
                 </button>
-                </li> 
-                @endif
+                </li>
                 <li class="nav-item mx-2 py-2">
                 <button type="button" class="btn-an" style="background-color:#006799; color:white ">
                 <a href="https://app.premiocalidadaps.com.co/Premio_nacional_OES/Evaluadores/evaluados">Evaluados</a>
                 </button>
-                </li> 
+                </li>  
                 @auth
                 <li class="nav-item mx-2 py-2">
                 <button type="button" class="btn-an" style="background-color:#006799; color:white ">
@@ -74,41 +67,35 @@
         </nav>
         <script src="https://kit.fontawesome.com/782d75be0f.js" crossorigin="anonymous"></script>
     </header>
+</head>
 <body>
-    <br><br>
-    <center>
-            <h1 style="color: #009FE3">Evaluación de la inscripción {{$idinscritos->Codigorandom}}</h1>
-    </center>
-    @if (session('success'))
-                    <div class="alert alert-success" role="alert">
-                        <h6>{{session('success')}}</h6>
-                    </div> 
-    @endif
-    @if($errors->any())
-                    <div class="alert alert-warning" role="alert">
-                        {!! implode('', $errors->all('<h6 class="error">:message</h6>')) !!}
-                    </div>
-    @endif
-<div class="d-grid gap-2 col-6 mx-auto">
-    <button class="button-home-a">
-        <a href="{{url('/Premio_nacional_OES/Evaluadores/consultaInscripcion/'.$idinscritos->id.'/1/evaluarPerinatal')}}">Evaluación atención en salud materno perinatal</a>
-    </button class="button-home-a">
-    <button class="button-home-a">
-        <a href="{{url('/Premio_nacional_OES/Evaluadores/consultaInscripcion/'.$idinscritos->id.'/2/evaluarCardiovascular')}}">Evaluación detección temprana de enfermedades cardiovasculares</a>
-    </button>
-    <button class=" button-home-a">
-        <a href="{{url('/Premio_nacional_OES/Evaluadores/consultaInscripcion/'.$idinscritos->id.'/3/evaluarCancer')}}">Evaluación detección temprana de cáncer</a>
-    </button>
-    <button class=" button-home-a">
-        <a href="{{url('/Premio_nacional_OES/Evaluadores/consultaInscripcion/'.$idinscritos->id.'/4/evaluarEnfoque')}}">Evaluación integración del enfoque diferencial en las atenciones del prestador</a>
-    </button>
     <br>
-    <button class=" button-home-a">
-        <a href="{{url('/Premio_nacional_OES/Evaluadores/consultaInscripcion/'.$idinscritos->Codigorandom.'/resultado')}}">Generar Resultado</a>
-    </button>
-    <button class=" button-home-a">
-        <a href="{{url('/Premio_nacional_OES/Evaluadores/consultaInscripcion/'.$idinscritos->Codigorandom.'/resultadofinal')}}">Resultado</a>
-    </button>
-</div>
+    <center>
+             <b>
+                 <h3 style="color: #009FE3">Autorización modificación de resultado de la inscripción @foreach ($inscripcion as $ins)  {{$ins->Codigorandom}}  @endforeach</h3>
+             </b>
+    </center> 
+  <br>
+    <div style="overflow-x:auto;">
+        @if (session('success'))
+        <div class="alert alert-success" role="alert">
+                            <h6>{{session('success')}}</h6>
+        </div> 
+        @endif
+        @if($errors->any())
+                        <div class="alert alert-warning" role="alert">
+                            {!! implode('', $errors->all('<h6 class="error">:message</h6>')) !!}
+                        </div>
+        @endif
+        
+        <div class="d-grid gap-2 col-6 mx-auto">
+            @foreach ($scaleusers as $scale)
+            <button class="button-edit">
+                <a href="{{url('/Premio_nacional_OES/Evaluadores/consultaInscripcion/'.$scale->id.'/autorizacionE')}}">{{$scale->category}}</a>
+            </button>
+            @endforeach
+        </div>
+     </div>
+  
 </body>
 </html>

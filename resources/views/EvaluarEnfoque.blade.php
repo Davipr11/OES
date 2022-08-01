@@ -155,7 +155,7 @@
             {{$scale->scale}}
         </td>
         <td>
-            <input type="radio" name="scaleenfoqueEstructura39" value="{{$scale->valor}}" {{ old('scaleenfoqueEstructura39') == "$scale->valor" ? 'checked' : '' }}> 
+            <input type="radio" name="scaleenfoqueEstructura39" value="{{$scale->valor}}" @foreach ($is as $i) {{ $i->estructura == "$scale->valor" ? 'checked' : ''}}  @endforeach {{ old('scaleenfoqueEstructura39') == "$scale->valor" ? 'checked' : '' }}> 
         </td>
        @endif
          
@@ -206,7 +206,7 @@
             {{$scale->scale}}
         </td>
         <td>
-            <input type="radio" name="scaleenfoqueEstructura40" value="{{$scale->valor}}" {{ old('scaleenfoqueEstructura40') == "$scale->valor" ? 'checked' : '' }}> 
+            <input type="radio" name="scaleenfoqueEstructura40" value="{{$scale->valor}}" @foreach ($is as $i) {{ $i->estructura2 == "$scale->valor" ? 'checked' : ''}}  @endforeach {{ old('scaleenfoqueEstructura40') == "$scale->valor" ? 'checked' : '' }}> 
         </td>
        @endif
          
@@ -258,7 +258,7 @@
             {{$scale->scale}}
         </td>
         <td>
-            <input type="radio" name="scaleenfoqueEstructura41" value="{{$scale->valor}}" {{ old('scaleenfoqueEstructura41') == "$scale->valor" ? 'checked' : '' }}> 
+            <input type="radio" name="scaleenfoqueEstructura41" value="{{$scale->valor}}" @foreach ($is as $i) {{ $i->estructura3 == "$scale->valor" ? 'checked' : ''}}  @endforeach {{ old('scaleenfoqueEstructura41') == "$scale->valor" ? 'checked' : '' }}> 
         </td>
        @endif
          
@@ -319,7 +319,7 @@
             {{$scale->scale}}
         </td>
         <td>
-            <input type="radio" name="scaleenfoqueproceso42" value="{{$scale->valor}}" {{ old('scaleenfoqueproceso42') == "$scale->valor" ? 'checked' : '' }}> 
+            <input type="radio" name="scaleenfoqueproceso42" value="{{$scale->valor}}" @foreach ($is as $i) {{ $i->proceso == "$scale->valor" ? 'checked' : ''}}  @endforeach {{ old('scaleenfoqueproceso42') == "$scale->valor" ? 'checked' : '' }}> 
         </td>
        @endif
          
@@ -373,7 +373,7 @@
             {{$scale->scale}}
         </td>
         <td>
-            <input type="radio" name="scaleenfoqueproceso43" value="{{$scale->valor}}" {{ old('scaleenfoqueproceso43') == "$scale->valor" ? 'checked' : '' }}> 
+            <input type="radio" name="scaleenfoqueproceso43" value="{{$scale->valor}}" @foreach ($is as $i) {{ $i->proceso2 == "$scale->valor" ? 'checked' : ''}}  @endforeach {{ old('scaleenfoqueproceso43') == "$scale->valor" ? 'checked' : '' }}> 
         </td>
        @endif
          
@@ -434,7 +434,7 @@
             {{$scale->scale}}
         </td>
         <td>
-            <input type="radio" name="scaleenfoqueresultado44" value="{{$scale->valor}}" {{ old('scaleenfoqueresultado44') == "$scale->valor" ? 'checked' : '' }}> 
+            <input type="radio" name="scaleenfoqueresultado44" value="{{$scale->valor}}"  @foreach ($is as $i) {{ $i->resultado == "$scale->valor" ? 'checked' : ''}}  @endforeach {{ old('scaleenfoqueresultado44') == "$scale->valor" ? 'checked' : '' }}> 
         </td>
        @endif
          
@@ -446,7 +446,10 @@
     <input type="hidden" name="category" value="4">
     <center>
         <button type="button" class="button-edit" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            Enviar
+            Enviar y guardar
+        </button>
+        <button type="button" class="button-edit" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+            Salvar
         </button>
     </center>
     
@@ -464,7 +467,24 @@
         Una vez enviada no se podrán hacer modificaciones.
       </div>
       <div class="modal-footer">
-        <input type="submit" value="Enviar" name="Enviar" class="button-edit">
+        <input type="submit" value="Enviar y guardar" name="Enviar" class="button-edit" formaction="{{url('Premio_nacional_OES/Evaluadores/consultaInscripcion/'.$inscripcion->id.'/evaluacionenfoque')}}">
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Salvar evaluación</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ¿Seguro que desea salvar la evaluación?
+      </div>
+      <div class="modal-footer">
+      <input type="submit" value="salvar" class="button-edit" name="Enviar" formaction="{{url('Premio_nacional_OES/Evaluadores/consultaInscripcion/'.$inscripcion->id.'/salvarevaluacionenfoque')}}">
       </div>
     </div>
   </div>

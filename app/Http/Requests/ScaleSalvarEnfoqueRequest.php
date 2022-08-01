@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ScaleEnfoqueRequest extends FormRequest
+class ScaleSalvarEnfoqueRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,30 +23,24 @@ class ScaleEnfoqueRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'scaleenfoqueEstructura39'=>'required',
-            'scaleenfoqueEstructura40'=>'required',
-            'scaleenfoqueEstructura41'=>'required',
-            'scaleenfoqueproceso42'=>'required',
-            'scaleenfoqueproceso43'=>'required',
-            'scaleenfoqueresultado44'=>'required',
-            'codigoUsuario'=>'required',
-            'category'=>'required'
-        ];
+            return [
+                'codigoUsuario'=>'required',
+                'category'=>'required',             
+            ];
+                 
+          
     }
+
 
     public function messages(){
         return[              
-            'scaleenfoqueEstructura39.required'=>'Por favor llene todas las evaluaciones de estructura',
-            'scaleenfoqueEstructura40.required'=>'Por favor llene todas las evaluaciones de estructura',
-            'scaleenfoqueEstructura41.required'=>'Por favor llene todas las evaluaciones de estructura',
-            'scaleenfoqueproceso42.required'=>'Por favor llene todas las evaluaciones de proceso',
-            'scaleenfoqueproceso43.required'=>'Por favor llene todas las evaluaciones de proceso',
-            'scaleenfoqueresultado44.required'=>'Por favor llene todas las evaluaciones de proceso',
             'codigoUsuario'=>'Error',
             'category'=>'Error',
+
         ];       
     }
+
+
 
     public function getData(){  
         return[
@@ -58,8 +52,7 @@ class ScaleEnfoqueRequest extends FormRequest
             'resultado'=>$this->get('scaleenfoqueresultado44'),
             'codigoUsuario'=>$this->get('codigoUsuario'),
             'category'=>$this->get('category'),
-            'completado'=>1,
+            'completado'=>0,
         ];
     }
-
 }

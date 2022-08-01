@@ -36,6 +36,7 @@ class CambioContraseñaRequest extends FormRequest
             'confirmacion-password.required'=>'La Confirmacion de contraseña es requerida',
             'same'=>'La Nueva contraseña y contraseña de confirmacion deben ser iguales',
             'max'=>'El :attribute no debe tener mas de 25 caracteres',
+            'min'=>'El :attribute debe tener mas de 3 caracteres',
         ];
     }
 

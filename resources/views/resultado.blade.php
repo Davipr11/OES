@@ -8,7 +8,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{{asset('css/estilos.css')}}">
     <link rel="icon" type="image/x-icon" href="{{asset('premionacional.png')}}">
-    <title>Resultado</title>
+    <title>Premio Calidad</title>
     <header>   
     <nav class="navbar navbar-expand-lg navbar-light bg-light"> <a class="navbar-brand" href="https://premiocalidadaps.com.co/"><img src="{{asset('logominisalud.png')}}" alt=""></a>       
            
@@ -78,7 +78,12 @@
     <br><br>
     <center><h1 style="color: #009FE3">Resultado</h1></center>
     <div style="overflow-x:auto;">
-          <table class="table table-striped container-table tabla-respo">
+          <table class="table table-striped container-table tabla-resp">
+          @if($errors->any())
+                    <div class="alert alert-danger" role="alert">
+                        {!! implode('', $errors->all('<h6 class="error">:message</h6>')) !!}
+                    </div>
+          @endif
           @foreach ($resultadofinal as $rf)
           <center><h1 style="color: #009FE3">Evaluación de la inscripción {{$rf->User}}</h1></center>
           @endforeach
@@ -92,7 +97,7 @@
               </tr>
                         
                 @foreach ($resultadofinal as $rf)
-                <tr>
+                <tr class="evaluados-td">
                     <th>Estrutura</th>
                     <td>{{$rf->porcentaje_estructura_perinatal}}%</td>
                     <td>{{$rf->porcentaje_estructura_cardio}}%</td>
@@ -100,7 +105,7 @@
                     <td>{{$rf->porcentaje_estructura_enfoque}}%</td>
                     <td>{{$rf->PorcentajeEstructura}}%</td>
                 </tr>
-                <tr>
+                <tr class="evaluados-td">
                     <th>Proceso</th>
                     <td>{{$rf->porcentaje_proceso_perinatal}}%</td>
                     <td>{{$rf->porcentaje_proceso_cardio}}%</td>
@@ -108,7 +113,7 @@
                     <td>{{$rf->porcentaje_proceso_enfoque}}%</td>
                     <td>{{$rf->PorcentajeProceso}}%</td>
                 </tr> 
-                <tr>
+                <tr class="evaluados-td">
                     <th>Resultado</th>
                     <td>{{$rf->porcentaje_resultado_perinatal}}%</td>
                     <td>{{$rf->porcentaje_resultado_cardio}}%</td>

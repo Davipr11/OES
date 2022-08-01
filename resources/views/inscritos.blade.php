@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inscritos</title>
+    <title>Premio Calidad</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{{asset('css/estilos.css')}}">
@@ -82,6 +82,42 @@
                  <h3 style="color: #009FE3">Inscritos</h3>
              </b>
         </center>
+        <br><br>
+        @if (auth()->user()->Tipo_Usuario==1)
+    <div class="table-filtros">
+        <table class="table table-striped table-hover tabla-resp">
+        <form action="/Premio_Nacional_OES/Evaluadores/consultaInscripcion/filtro" method="post">
+            @csrf
+            <tr>
+                <td>
+                    <input type="text" name="nombreips" id="" placeholder="Nombre de ips" class="form-control">
+                </td>
+                <td>
+                    <input type="submit" value="Filtar" name="filtrar" class="button-edit">
+                </td>
+           
+                <td>
+                    <input type="text" name="numeronit" id="" placeholder="NIT" class="form-control">
+                </td>
+                <td>
+                    <input type="submit" value="Filtar" name="filtrar" class="button-edit">
+                </td>
+          
+                <td>
+                    <input type="text" name="Cinscripcion" id="" placeholder="Codigo de inscripcion" class="form-control">
+                </td>
+                <td>
+                    <input type="submit" value="Filtar" name="filtrar" class="button-edit">
+                </td>
+            </tr>
+        </form>
+        <tr>
+            
+        </tr>
+    </table>
+    </div>
+    @endif
+    
    <br>  
    @if($errors->any())
                     <div class="alert alert-danger" role="alert">
@@ -90,7 +126,7 @@
     @endif
     <div style="overflow-x:auto;">
        <table class="table table-striped table-hover tabla-resp"> 
-            <div >
+            
             <tr class="table-inscritos"> 
                 <th >IPS</th>
                 <th >NIT</th>         
@@ -104,8 +140,12 @@
                 @endif
                 <th>Evaluador</th>
                 <th>Evaluación</th>
+                @if (auth()->user()->Tipo_Usuario==1)
+                <th>Autorizar modificacion</th>
+                <th>Codigo Inscripcion</th>
+                @endif
              </tr>   
-            </div>
+          
                 
             
             @foreach ($datos as $inscrito)
@@ -143,7 +183,17 @@
                         <button class="button-edit">
                             <a href="{{url('/Premio_nacional_OES/Evaluadores/consultaInscripcion/'.$inscrito->id.'/evaluaciones')}}">Evaluar</a>  
                         </button>                                                           
-                    </td>        
+                    </td>
+                    @if (auth()->user()->Tipo_Usuario==1)
+                    <td>
+                        <button class="button-edit">
+                            <a href="{{url('/Premio_nacional_OES/Evaluadores/consultaInscripcion/'.$inscrito->Codigorandom.'/autorizacion')}}">Autorizar</a>  
+                        </button>                                                           
+                    </td>
+                    <td>
+                        {{$inscrito->codigoRandom}}
+                    </td>  
+                    @endif       
             </tr>
              @endforeach   
     </table>

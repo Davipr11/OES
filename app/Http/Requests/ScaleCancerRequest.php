@@ -60,13 +60,19 @@ class ScaleCancerRequest extends FormRequest
 
     public function getData(){  
         return[
-            'estructura'=>$this->get('scalecancerEstructura29')+$this->get('scalecancerEstructura30'),
-            'proceso'=>$this->get('scalecancerproceso31')+$this->get('scalecancerproceso32')+$this->get('scalecancerproceso33')
-            +$this->get('scalecancerproceso34'),
-            'resultado'=>$this->get('scalecancerresultado35')+$this->get('scalecancerresultado36')+$this->get('scalecancerresultado37')
-            +$this->get('scalecancerresultado38'),
+            'estructura'=>$this->get('scalecancerEstructura29'),
+            'estructura2'=>$this->get('scalecancerEstructura30'),
+            'proceso'=>$this->get('scalecancerproceso31'),
+            'proceso2'=>$this->get('scalecancerproceso32'),
+            'proceso3'=>$this->get('scalecancerproceso33'),
+            'proceso4'=>$this->get('scalecancerproceso34'),
+            'resultado'=>$this->get('scalecancerresultado35'),
+            'resultado2'=>$this->get('scalecancerresultado36'),
+            'resultado3'=>$this->get('scalecancerresultado37'),
+            'resultado4'=>$this->get('scalecancerresultado38'),
             'codigoUsuario'=>$this->get('codigoUsuario'),
             'category'=>$this->get('category'),
+            'completado'=>1,
         ];
     }
 
