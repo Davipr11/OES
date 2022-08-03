@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="{{asset('css/estilos.css')}}">
     <link rel="icon" type="image/x-icon" href="{{asset('premionacional.png')}}">
     <header>   
-    <nav class="navbar navbar-expand-lg navbar-light bg-light"> <a class="navbar-brand" href="https://premiocalidadaps.com.co/"><img src="{{asset('logominisalud.png')}}" alt=""></a>       
+    <nav class="navbar navbar-expand-xxl navbar-light bg-light"> <a class="navbar-brand" href="https://premiocalidadaps.com.co/"><img src="{{asset('logominisalud.png')}}" alt=""></a>       
            
            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent2"  aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
            <span class="navbar-toggler-icon"></span>
@@ -85,36 +85,38 @@
         <br><br>
         @if (auth()->user()->Tipo_Usuario==1)
     <div class="table-filtros">
-        <table class="table table-striped table-hover tabla-resp">
-        <form action="/Premio_Nacional_OES/Evaluadores/consultaInscripcion/filtro" method="post">
-            @csrf
-            <tr>
-                <td>
-                    <input type="text" name="nombreips" id="" placeholder="Nombre de ips" class="form-control">
-                </td>
-                <td>
-                    <input type="submit" value="Filtar" name="filtrar" class="button-edit">
-                </td>
-           
-                <td>
-                    <input type="text" name="numeronit" id="" placeholder="NIT" class="form-control">
-                </td>
-                <td>
-                    <input type="submit" value="Filtar" name="filtrar" class="button-edit">
-                </td>
-          
-                <td>
-                    <input type="text" name="Cinscripcion" id="" placeholder="Codigo de inscripcion" class="form-control">
-                </td>
-                <td>
-                    <input type="submit" value="Filtar" name="filtrar" class="button-edit">
-                </td>
-            </tr>
-        </form>
-        <tr>
-            
-        </tr>
-    </table>
+                <table class="table table-striped tabla-resp">
+                <form action="/Premio_Nacional_OES/Evaluadores/consultaInscripcion/filtro" method="post">
+                    @csrf
+                    <tr>
+                        <td>
+                            <input type="text" name="nombreips" id="" placeholder="Nombre de ips" class="form-control">
+                        </td>
+                        <td>
+                            <input type="submit" value="Filtar" name="filtrar" class="button-edit">
+                        </td>
+                </tr>
+                <tr>
+                        <td>
+                            <input type="text" name="numeronit" id="" placeholder="NIT" class="form-control">
+                        </td>
+                        <td>
+                            <input type="submit" value="Filtar" name="filtrar" class="button-edit">
+                        </td>
+                </tr>
+                <tr>
+                        <td>
+                            <input type="text" name="Cinscripcion" id="" placeholder="Codigo de inscripcion" class="form-control">
+                        </td>
+                        <td>
+                            <input type="submit" value="Filtar" name="filtrar" class="button-edit">
+                        </td>
+                    </tr>
+                </form>
+                <tr>
+                    
+                </tr>
+            </table>
     </div>
     @endif
     
@@ -124,7 +126,7 @@
                         {!! implode('', $errors->all('<h6 class="error">:message</h6>')) !!}
                     </div>
     @endif
-    <div style="overflow-x:auto;">
+    <div style="overflow-x:auto !important; ">
        <table class="table table-striped table-hover tabla-resp"> 
             
             <tr class="table-inscritos"> 
@@ -144,10 +146,7 @@
                 <th>Autorizar modificacion</th>
                 <th>Codigo Inscripcion</th>
                 @endif
-             </tr>   
-          
-                
-            
+             </tr>             
             @foreach ($datos as $inscrito)
             <tr class="table-inscritos">    
                 <td>{{$inscrito->ips}}</td>       

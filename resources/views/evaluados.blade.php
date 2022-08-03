@@ -11,7 +11,7 @@
     <link rel="icon" type="image/x-icon" href="{{asset('premionacional.png')}}">
     <title>Premio Calidad</title>
     <header>   
-    <nav class="navbar navbar-expand-lg navbar-light bg-light"> <a class="navbar-brand" href="https://premiocalidadaps.com.co/"><img src="{{asset('logominisalud.png')}}" alt=""></a>       
+    <nav class="navbar navbar-expand-xxl navbar-light bg-light"> <a class="navbar-brand" href="https://premiocalidadaps.com.co/"><img src="{{asset('logominisalud.png')}}" alt=""></a>       
            
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent2"  aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -143,33 +143,40 @@
                 </tr>             
                
           </table>
-          <br><br><br>
+          <br>
           
         </div>
-        <div class="container">
-            <canvas id="myChart{{$rf->User}}"></canvas>
+        <div class="container-fluid">       
+                <canvas id="myChart{{$rf->User}}"></canvas>         
         </div>
+    
+    @foreach ($mejorResult as $mr)       
         <script>
             const labels{{$rf->User}} = [
-                'Materno perinatal',
-                'Cancer',
-                'Cardiovascular',
-                'Enfoque',
+                'Atencion en salud Materno perinatal',
+                'Deteccion de Cancer',
+                'Deteccion temprana de enfermedades Cardiovasculares',
+                'Enfoque diferencial del prestador',
             ];
 
             const data{{$rf->User}}= {
                 labels: labels{{$rf->User}},
                 datasets: [{
-                label: 'Resultado',
+                label: 'Resultado Inscripcion {{$rf->User}}',
                 borderColor: 'rgb(255, 99, 132)',
-                data: [{{$rf->porcentaje_perinatal}}, {{$rf->porcentaje_cardio}}, {{$rf->porcentaje_cancer}}, {{$rf->porcentaje_enfoque}}],
+                data: [{{$rf->porcentaje_perinatal}}, {{$rf->porcentaje_cardio}}, {{$rf->porcentaje_cancer}}, {{$rf->porcentaje_enfoque}}],               
+                },{
+                    label: 'Mejor Resultado',
+                    borderColor: '#00A6FF',
+                    data: [{{$mr->porcentaje_perinatal}}, {{$mr->porcentaje_cardio}}, {{$mr->porcentaje_cancer}}, {{$mr->porcentaje_enfoque}}],
                 }]
             };
 
             const config{{$rf->User}} = {
                 type: 'radar',
                 data: data{{$rf->User}},
-                options: { 
+                options: {
+                    responsive:true, 
                     scales: {
                     r: {
                         angleLines: {
@@ -187,7 +194,8 @@
                 config{{$rf->User}}
             );
 
-        </script>
+        </script> 
+         @endforeach     
      @endforeach
      
 </body>
