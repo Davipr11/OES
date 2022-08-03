@@ -20,6 +20,7 @@ use App\Http\Requests\ScaleSalvarCancerRequest;
 use App\Http\Requests\ScaleSalvarEnfoqueRequest;
 use App\Models\Result;
 use App\Models\Rule;
+use App\Charts\ResultsInscriptions;
 
 
 class EvaluarController extends Controller
@@ -533,9 +534,9 @@ class EvaluarController extends Controller
             }         
         }
 
-    public function evaluados(){
+    public function evaluados(ResultsInscriptions $chart){
 
-        try {
+        //try {
             if(auth()->user()->Tipo_Usuario==1){
                 $evaluados=DB::table('results')
                 ->join('users_inscriptions','results.User','=','users_inscriptions.Codigorandom')
@@ -548,6 +549,9 @@ class EvaluarController extends Controller
                 'results.porcentaje_perinatal', 'results.porcentaje_cardio', 'results.porcentaje_cancer', 'results.porcentaje_enfoque', 'results.PorcentajeTotal', 'results.User'
                 ,'users_inscriptions.ips', 'results.updated_at', 'users.Usuario')
                 ->orderbyDesc('results.PorcentajeTotal')->get();
+                $max=Result::max('PorcentajeTotal');
+                $mejorResult=DB::table('results')->select('porcentaje_perinatal', 'porcentaje_cardio', 'porcentaje_cancer', 'porcentaje_enfoque')
+                ->where('PorcentajeTotal','>=',$max)->get();
             }else{
                 /*$evaluados=DB::select('SELECT `porcentaje_estructura_perinatal`, 
                 `porcentaje_proceso_perinatal`, `porcentaje_resultado_perinatal`,
@@ -572,13 +576,16 @@ class EvaluarController extends Controller
                 ,'users_inscriptions.ips', 'results.updated_at', 'users.Usuario')
                 ->where('users_inscriptions.Evaluador', auth()->user()->id)
                 ->orderbyDesc('results.PorcentajeTotal')->get();
+                $max=Result::max('PorcentajeTotal');
+                $mejorResult=DB::table('results')->select('porcentaje_perinatal', 'porcentaje_cardio', 'porcentaje_cancer', 'porcentaje_enfoque')
+                ->where('PorcentajeTotal','>=',$max)->get();
             }
             
 
-            return view('evaluados', compact('evaluados'));
-        } catch (\Throwable $th) {
-            return redirect()->back()->withErrors('Error');
-        }
+            return view('evaluados', compact('evaluados', 'mejorResult'), ['chart' => $chart->build()]);
+        //} catch (\Throwable $th) {
+         //   return redirect()->back()->withErrors('Error');
+        //}
         
     }
 }
