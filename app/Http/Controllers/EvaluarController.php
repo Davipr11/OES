@@ -21,7 +21,10 @@ use App\Http\Requests\ScaleSalvarEnfoqueRequest;
 use App\Models\Result;
 use App\Models\Rule;
 use App\Charts\ResultsInscriptions;
-
+use App\Charts\InscritosTerritorio;
+use App\Charts\InscritosCategorias;
+use App\Charts\InscritosFases;
+use App\Charts\InscritosFasesCategorias;
 
 class EvaluarController extends Controller
 {
@@ -82,7 +85,7 @@ class EvaluarController extends Controller
                             $scaleuser=$request->getData();  
                              ScalesUser::where('CodigoUsuario','=',$i->codigoUsuario)->where('category',1)->update($scaleuser);
 
-                            return redirect('/Premio_nacional_OES/Evaluadores/consultaInscripcion/'.$Codigorandom.'/evaluaciones')->withSuccess('Evaluado Detección temprana de enfermedades cardiovasculares');
+                            return redirect('/Premio_nacional_OES/Evaluadores/consultaInscripcion/'.$Codigorandom.'/evaluaciones')->withSuccess('Evaluado Atención en salud Materno Perinatal');
                         }
                     }
                 }  
@@ -536,7 +539,7 @@ class EvaluarController extends Controller
 
     public function evaluados(ResultsInscriptions $chart){
 
-        //try {
+        try {
             if(auth()->user()->Tipo_Usuario==1){
                 $evaluados=DB::table('results')
                 ->join('users_inscriptions','results.User','=','users_inscriptions.Codigorandom')
@@ -550,8 +553,12 @@ class EvaluarController extends Controller
                 ,'users_inscriptions.ips', 'results.updated_at', 'users.Usuario')
                 ->orderbyDesc('results.PorcentajeTotal')->get();
                 $max=Result::max('PorcentajeTotal');
+                $promedio=DB::select('SELECT avg(porcentaje_perinatal) as porcentaje_perinatal , avg(porcentaje_cardio) as porcentaje_cardio, avg(porcentaje_cancer) as porcentaje_cancer, avg(porcentaje_enfoque) as porcentaje_enfoque
+                FROM `results` ');
                 $mejorResult=DB::table('results')->select('porcentaje_perinatal', 'porcentaje_cardio', 'porcentaje_cancer', 'porcentaje_enfoque')
                 ->where('PorcentajeTotal','>=',$max)->get();
+
+
             }else{
                 /*$evaluados=DB::select('SELECT `porcentaje_estructura_perinatal`, 
                 `porcentaje_proceso_perinatal`, `porcentaje_resultado_perinatal`,
@@ -579,13 +586,23 @@ class EvaluarController extends Controller
                 $max=Result::max('PorcentajeTotal');
                 $mejorResult=DB::table('results')->select('porcentaje_perinatal', 'porcentaje_cardio', 'porcentaje_cancer', 'porcentaje_enfoque')
                 ->where('PorcentajeTotal','>=',$max)->get();
+                $promedio=DB::select('SELECT avg(porcentaje_perinatal) as porcentaje_perinatal , avg(porcentaje_cardio) as porcentaje_cardio, avg(porcentaje_cancer) as porcentaje_cancer, avg(porcentaje_enfoque) as porcentaje_enfoque
+                FROM `results` ');
             }
             
 
-            return view('evaluados', compact('evaluados', 'mejorResult'), ['chart' => $chart->build()]);
-        //} catch (\Throwable $th) {
-         //   return redirect()->back()->withErrors('Error');
-        //}
+            return view('evaluados', compact('evaluados', 'mejorResult', 'promedio'));
+        } catch (\Throwable $th) {
+            return redirect()->back()->withErrors('Error');
+        }
         
+    }
+
+    public function graficos(ResultsInscriptions $chart, InscritosCategorias $chart2, InscritosTerritorio $chart3, InscritosFases $chart4, InscritosFasesCategorias $chart5){
+        if(auth()->user()->Tipo_Usuario==1){
+        return view('Graficos', ['chart1' => $chart->build(),'chart2' => $chart2->build(), 'chart3' => $chart3->build(), 'chart4' => $chart4->build(), 'chart5' => $chart5->build()]);
+        }else{
+            return redirect()->back();
+        }
     }
 }
