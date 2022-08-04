@@ -91,6 +91,11 @@
             <br>
             <tr>
                 <td>
+                  @if($errors->any())
+                    
+                            {!! implode('', $errors->all('<h6 class="error">:message</h6>')) !!}
+                 @endif
+                   
                 Definir, ordenar e integrar las intervenciones colectivas e individuales y
                 las acciones requeridas para intervenir a las personas con riesgo y/o con cáncer de mama,
                 cuello uterino y próstata, en donde las instituciones logren demostrar una implementación del 70% de
@@ -99,7 +104,10 @@
                 y en la disminución de la mortalidad relacionada con cáncer de mama, cuello uterino y próstata, prioritarios para el país. 
                 </td>
                 <td></td>
+           
+            
             </tr>
+            
             <tr>      
                     <th class="table-eva">ESTRUCTURA</th>
                     <th></th>
@@ -110,11 +118,6 @@
     </tr>
     <tr>
             <td>
-                    @if($errors->any())
-                    
-                            {!! implode('', $errors->all('<h6 class="error">:message</h6>')) !!}
-                
-                    @endif
                     @foreach ($recommendations as $recommendation)
                             
                             @if ($recommendation->id==29)

@@ -89,6 +89,12 @@
             <br>
             <tr>
                 <td>
+                @if($errors->any())
+                    
+                    {!! implode('', $errors->all('<h6 class="error">:message</h6>')) !!}
+        
+            @endif
+            
                 Definir, ordenar e integrar las acciones y las intervenciones colectivas e individuales de la Ruta Integral de Atención en Salud Materno Perinatal,
                 en el marco de la estrategia de APS, en donde las instituciones logren demostrar una implementación del 70% de las acciones de gestión y las
                 intervenciones individuales dirigidas a las gestantes y recién nacidos a su cargo, de acuerdo con lo definido en la Ruta Integral de Atención
@@ -109,11 +115,7 @@
     </tr>
     <tr>
             <td>
-                    @if($errors->any())
                     
-                            {!! implode('', $errors->all('<h6 class="error">:message</h6>')) !!}
-                
-                    @endif
                     @foreach ($recommendations as $recommendation)
                             
                             @if ($recommendation->id==1)

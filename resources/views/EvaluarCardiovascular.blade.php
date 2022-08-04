@@ -89,6 +89,11 @@
             <br>
             <tr>
                 <td>
+                @if($errors->any())
+                    
+                    {!! implode('', $errors->all('<h6 class="error">:message</h6>')) !!}
+        
+            @endif
                 Definir, ordenar e integrar las acciones e intervenciones requeridas
                 para abordar en el enfoque de APS a las personas con riesgo cardio- vascular metabólico,
                 en donde las instituciones logren demostrar una implementación del 70% de los estándares definidos
@@ -107,11 +112,6 @@
     </tr>
     <tr>
             <td>
-                    @if($errors->any())
-                    
-                            {!! implode('', $errors->all('<h6 class="error">:message</h6>')) !!}
-                
-                    @endif
                     @foreach ($recommendations as $recommendation)
                             
                             @if ($recommendation->id==14)

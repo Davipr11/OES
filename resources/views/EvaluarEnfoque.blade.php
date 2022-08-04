@@ -91,6 +91,11 @@
             <br>
             <tr>
                 <td>
+                @if($errors->any())
+                    
+                    {!! implode('', $errors->all('<h6 class="error">:message</h6>')) !!}
+        
+            @endif
                 Definir, ordenar e integrar las intervenciones colectivas e individuales,
                 las acciones requeridas en el marco de la atención integral en salud y en el contexto
                 global de las organizaciones de salud, para la incorporación, consolidación, y puesta en práctica de estrategias
@@ -113,11 +118,7 @@
     </tr>
     <tr>
             <td>
-                    @if($errors->any())
                     
-                            {!! implode('', $errors->all('<h6 class="error">:message</h6>')) !!}
-                
-                    @endif
                     @foreach ($recommendations as $recommendation)
                             
                             @if ($recommendation->id==39)

@@ -149,8 +149,11 @@
         <div class="container-fluid">       
                 <canvas id="myChart{{$rf->User}}"></canvas>         
         </div>
+        
     
-    @foreach ($mejorResult as $mr)       
+    @foreach ($mejorResult as $mr)
+    @foreach ($promedio as $pro)
+              
         <script>
             const labels{{$rf->User}} = [
                 'Atencion en salud Materno perinatal',
@@ -164,11 +167,15 @@
                 datasets: [{
                 label: 'Resultado Inscripcion {{$rf->User}}',
                 borderColor: 'rgb(255, 99, 132)',
-                data: [{{$rf->porcentaje_perinatal}}, {{$rf->porcentaje_cardio}}, {{$rf->porcentaje_cancer}}, {{$rf->porcentaje_enfoque}}],               
+                data: [{{$rf->porcentaje_perinatal}}, {{$rf->porcentaje_cancer}}, {{$rf->porcentaje_cardio}}, {{$rf->porcentaje_enfoque}}],               
                 },{
                     label: 'Mejor Resultado',
                     borderColor: '#00A6FF',
-                    data: [{{$mr->porcentaje_perinatal}}, {{$mr->porcentaje_cardio}}, {{$mr->porcentaje_cancer}}, {{$mr->porcentaje_enfoque}}],
+                    data: [{{$mr->porcentaje_perinatal}}, {{$mr->porcentaje_cancer}}, {{$mr->porcentaje_cardio}}, {{$mr->porcentaje_enfoque}}],
+                },{
+                    label: 'Promedio Resultados',
+                    borderColor: '#00A655',
+                    data: [{{$pro->porcentaje_perinatal}}, {{$pro->porcentaje_cancer}}, {{$pro->porcentaje_cardio}}, {{$pro->porcentaje_enfoque}}],
                 }]
             };
 
@@ -195,6 +202,7 @@
             );
 
         </script> 
+        @endforeach 
          @endforeach     
      @endforeach
      

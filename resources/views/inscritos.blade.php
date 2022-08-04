@@ -86,7 +86,7 @@
         @if (auth()->user()->Tipo_Usuario==1)
     <div class="table-filtros">
                 <table class="table table-striped tabla-resp">
-                <form action="/Premio_Nacional_OES/Evaluadores/consultaInscripcion/filtro" method="post">
+                <form action="/Premio_Nacional_OES/Evaluadores/consultaInscripcion" method="post">
                     @csrf
                     <tr>
                         <td>
